@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
 RUN apt update 
-RUN apt install --assume-yes --fix-broken curl git gnupg htop wget zsh
+RUN apt install --assume-yes --fix-broken curl git gnupg htop vim wget zsh
 
 RUN curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor > bazel.gpg
 RUN mv bazel.gpg /etc/apt/trusted.gpg.d/
