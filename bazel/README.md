@@ -11,5 +11,5 @@ docker run -it --rm -v /home/src:/workspace/src -v "$HOME/.ssh:$HOME/.ssh:ro" -v
 ###### Attaching to running, reusing bazel server
 
 ```bash
-docker exec -t --user $UID:$UID --env "http_proxy=$http_proxy" --env "https_proxy=$https_proxy" --env "no_proxy=$no_proxy" $(docker ps | tail -1 | awk '{print $1}')
+docker exec -it --env "http_proxy=$http_proxy" --env "https_proxy=$https_proxy" --env "no_proxy=$no_proxy" $(docker ps | tail -1 | awk '{print $1}') /bin/zsh')
 ```
