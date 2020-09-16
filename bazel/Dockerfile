@@ -11,5 +11,3 @@ RUN apt install --assume-yes --fix-broken bazel
 
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/mihaigalos/utils/master/setmeup/setup_oh_my_zsh.sh)"
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/mihaigalos/utils/master/setmeup/setup_vim.sh)"
-
-ENTRYPOINT cd && /bin/zsh
