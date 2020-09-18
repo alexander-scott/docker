@@ -28,12 +28,17 @@ jobs:
 
       - name: Run tests
         run: |
-          if [ -f docker-compose.test.yml ]; then
-            docker-compose --file docker-compose.test.yml build
-            docker-compose --file docker-compose.test.yml run sut
-          else
-            docker build . --file Dockerfile
-          fi
+          FOLDERS=$(ls -d */)
+          for FOLDER in $FOLDERS; do
+            pushd $FOLDER
+              if [ -f docker-compose.test.yml ]; then
+                docker-compose --file docker-compose.test.yml build
+                docker-compose --file docker-compose.test.yml run sut
+              elif [ -f Dockerfile ]; then
+                docker build . --file Dockerfile
+              fi
+            popd
+          done
 
   # Push image to GitHub Packages.
   # See also https://docs.docker.com/docker-hub/builds/
