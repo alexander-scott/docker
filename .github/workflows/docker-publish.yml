@@ -65,7 +65,6 @@ jobs:
             done
 
       - name: Log into GitHub Container Registry
-      # TODO: Create a PAT with `read:packages` and `write:packages` scopes and save it as an Actions secret `CR_PAT`
         run: echo "${{ secrets.CR_PAT }}" | docker login https://docker.pkg.github.com -u ${{ github.actor }} --password-stdin
 
       - name: Push image to GitHub Container Registry
