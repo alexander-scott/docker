@@ -74,7 +74,7 @@ jobs:
               pushd $FOLDER
                 IMAGE_NAME=$(echo $FOLDER | sed -e "s,/,,g")
                 if [ -f Dockerfile ]; then
-                  IMAGE_ID=docker.pkg.github.com/${{ github.repository_owner }}/${{ github.repository }}/$IMAGE_NAME
+                  IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
 
                   IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
 
