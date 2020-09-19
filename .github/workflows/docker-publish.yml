@@ -53,14 +53,14 @@ jobs:
       - name: Build image
         run: |
           FOLDERS=$(ls -d */)
-            for FOLDER in $FOLDERS; do
-              pushd $FOLDER
-                IMAGE_NAME=$(echo $FOLDER | sed -e "s,/,,g")
-                if [ -f Dockerfile ]; then
-                  docker build . --file Dockerfile --tag $IMAGE_NAME
-                fi
-              popd
-            done
+          for FOLDER in $FOLDERS; do
+            pushd $FOLDER
+              IMAGE_NAME=$(echo $FOLDER | sed -e "s,/,,g")
+              if [ -f Dockerfile ]; then
+                docker build . --file Dockerfile --tag $IMAGE_NAME
+              fi
+            popd
+          done
 
       - name: Log into GitHub Container Registry
         run: echo "${{ secrets.CR_PAT }}" | docker login https://docker.pkg.github.com -u ${{ github.actor }} --password-stdin
@@ -68,28 +68,28 @@ jobs:
       - name: Push image to GitHub Container Registry
         run: |
           FOLDERS=$(ls -d */)
-            for FOLDER in $FOLDERS; do
-              pushd $FOLDER
-                IMAGE_NAME=$(echo $FOLDER | sed -e "s,/,,g")
-                if [ -f Dockerfile ]; then
-                  IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
+          for FOLDER in $FOLDERS; do
+            pushd $FOLDER
+              IMAGE_NAME=$(echo $FOLDER | sed -e "s,/,,g")
+              if [ -f Dockerfile ]; then
+                IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
 
-                  IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+                IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
 
-                  # Strip git ref prefix from version
-                  VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+                # Strip git ref prefix from version
+                VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
 
-                  # Strip "v" prefix from tag name
-                  [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+                # Strip "v" prefix from tag name
+                [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
 
-                  # Use Docker `latest` tag convention
-                  [ "$VERSION" == "master" ] && VERSION=latest
+                # Use Docker `latest` tag convention
+                [ "$VERSION" == "master" ] && VERSION=latest
 
-                  echo IMAGE_ID=$IMAGE_ID
-                  echo VERSION=$VERSION
+                echo IMAGE_ID=$IMAGE_ID
+                echo VERSION=$VERSION
 
-                  docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
-                  docker push $IMAGE_ID:$VERSION
-                fi
-              popd
-            done
+                docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
+                docker push $IMAGE_ID:$VERSION
+              fi
+            popd
+          done
