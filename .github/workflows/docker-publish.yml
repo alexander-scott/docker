@@ -34,7 +34,7 @@ jobs:
                 docker-compose --file docker-compose.test.yml build
                 docker-compose --file docker-compose.test.yml run sut
               elif [ -f Dockerfile ]; then
-                docker build . --file Dockerfile
+                echo "Skipping tests for $FOLDER/Dockerfile."
               fi
             popd
           done
