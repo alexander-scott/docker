@@ -47,8 +47,16 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
 
+    strategy:
+      matrix:
+        python-version: ["pypy3"]
+
     steps:
       - uses: actions/checkout@v2
+
+      - uses: "actions/setup-python@v2"
+        with:
+          python-version: "${{ matrix.python-version }}"
 
       - name: Build image
         run: |
@@ -90,6 +98,16 @@ jobs:
 
                 docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
                 docker push $IMAGE_ID:$VERSION
+
+                if [[ $VERSION == "latest" || $VERSION == "merge" ]]; then
+                  COMMAND=$(echo $FOLDER | sed -e "s,/,,g")
+
+                  TOOL_VERSION=$($(echo $COMMAND --version) | grep -i $COMMAND | sed -e "s/[^0-9]*\([0-9.]\+\).*/\1/g")
+                  echo TOOL_VERSION=$TOOL_VERSION
+
+                  docker tag $IMAGE_NAME $IMAGE_ID:$TOOL_VERSION
+                  docker push $IMAGE_ID:$TOOL_VERSION
+                fi
               fi
             popd
           done
