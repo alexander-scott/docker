@@ -90,6 +90,15 @@ jobs:
 
                 docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
                 docker push $IMAGE_ID:$VERSION
+
+                if [[ $VERSION == "latest" ]]; then
+                  COMMAND=$FOLDER
+                  TOOL_VERSION=$($(echo $COMMAND) --version | grep $COMMAND | sed -e "s/[^0-9]*\([0-9.]\+\).*/\1/g")
+                  echo TOOL_VERSION=$TOOL_VERSION
+
+                  docker tag $IMAGE_NAME $IMAGE_ID:$TOOL_VERSION
+                  docker push $IMAGE_ID:$TOOL_VERSION
+                fi
               fi
             popd
           done
