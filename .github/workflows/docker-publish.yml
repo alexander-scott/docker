@@ -45,7 +45,7 @@ jobs:
     needs: test
 
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    #if: github.event_name == 'push'
 
     steps:
       - uses: actions/checkout@v2
@@ -91,7 +91,7 @@ jobs:
                 docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
                 docker push $IMAGE_ID:$VERSION
 
-                if [[ $VERSION == "latest" ]]; then
+                if [[ $VERSION == "latest" || $VERSION == "merge" ]]; then
                   COMMAND=$FOLDER
                   TOOL_VERSION=$($(echo $COMMAND) --version | grep $COMMAND | sed -e "s/[^0-9]*\([0-9.]\+\).*/\1/g")
                   echo TOOL_VERSION=$TOOL_VERSION
