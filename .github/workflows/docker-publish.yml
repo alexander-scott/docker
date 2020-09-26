@@ -92,7 +92,7 @@ jobs:
                 docker push $IMAGE_ID:$VERSION
 
                 if [[ $VERSION == "latest" || $VERSION == "merge" ]]; then
-                  COMMAND=$FOLDER
+                  COMMAND=$(echo $FOLDER | sed -e "s,/,,g")
                   TOOL_VERSION=$($(echo $COMMAND) --version | grep $COMMAND | sed -e "s/[^0-9]*\([0-9.]\+\).*/\1/g")
                   echo TOOL_VERSION=$TOOL_VERSION
 
