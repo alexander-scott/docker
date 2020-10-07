@@ -10,6 +10,7 @@ RUN apt install --assume-yes --fix-broken \
     python3-pip \
     sudo \
     tig \
+    unzip \
     vim \
     wget \
     zsh
