@@ -94,6 +94,7 @@ jobs:
                   COMMAND=$(echo $FOLDER | sed -e "s,/,,g")
 
                   TOOL_VERSION=$($(echo $COMMAND --version) | grep -i $COMMAND | sed -e "s/[^0-9]*\([0-9.]\+\).*/\1/g")
+                  TOOL_VERSION="${TOOL_VERSION:-latest}"
                   echo TOOL_VERSION=$TOOL_VERSION
 
                   docker tag $IMAGE_NAME $IMAGE_ID:$TOOL_VERSION
