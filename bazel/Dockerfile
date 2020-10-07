@@ -1,4 +1,4 @@
-FROM docker.pkg.github.com/mihaigalos/docker/base-ubuntu-20.04
+FROM docker.pkg.github.com/mihaigalos/docker/base-ubuntu-20.04:merge
 
 RUN curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor > bazel.gpg
 RUN mv bazel.gpg /etc/apt/trusted.gpg.d/
