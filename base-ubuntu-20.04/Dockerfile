@@ -22,3 +22,9 @@ RUN wget https://github.com/ogham/exa/releases/download/v0.9.0/exa-linux-x86_64-
 RUN unzip exa-linux-x86_64-0.9.0.zip
 RUN rm exa-linux-x86_64-0.9.0.zip
 RUN mv exa-linux-x86_64 /usr/bin/exa
+
+RUN wget https://github.com/Byron/dua-cli/releases/download/v2.10.2/dua-v2.10.2-x86_64-unknown-linux-musl.tar.gz
+RUN tar -xvf dua-v2.10.2-x86_64-unknown-linux-musl.tar.gz
+RUN rm dua-v2.10.2-x86_64-unknown-linux-musl.tar.gz
+RUN rm -rf dua-v2.10.2-x86_64-unknown-linux-musl
+RUN mv dua-v2.10.2-x86_64-unknown-linux-musl/dua /usr/bin/dua
