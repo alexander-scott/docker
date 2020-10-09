@@ -28,3 +28,9 @@ RUN tar -xvf dua-v2.10.2-x86_64-unknown-linux-musl.tar.gz
 RUN rm dua-v2.10.2-x86_64-unknown-linux-musl.tar.gz
 RUN mv dua-v2.10.2-x86_64-unknown-linux-musl/dua /usr/bin/dua
 RUN rm -rf dua-v2.10.2-x86_64-unknown-linux-musl
+
+RUN wget https://github.com/sharkdp/bat/releases/download/v0.16.0/bat-v0.16.0-x86_64-unknown-linux-gnu.tar.gz
+RUN tar -xvf bat-v0.16.0-x86_64-unknown-linux-gnu.tar.gz
+RUN rm bat-v0.16.0-x86_64-unknown-linux-gnu.tar.gz
+RUN mv bat-v0.16.0-x86_64-unknown-linux-gnu/bat /usr/bin/bat
+RUN rm -rf bat-v0.16.0-x86_64-unknown-linux-gnu
