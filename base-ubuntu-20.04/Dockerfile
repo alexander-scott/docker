@@ -34,3 +34,8 @@ RUN tar -xvf bat-v0.16.0-x86_64-unknown-linux-gnu.tar.gz
 RUN rm bat-v0.16.0-x86_64-unknown-linux-gnu.tar.gz
 RUN mv bat-v0.16.0-x86_64-unknown-linux-gnu/bat /usr/bin/bat
 RUN rm -rf bat-v0.16.0-x86_64-unknown-linux-gnu
+
+RUN wget https://github.com/XAMPPRocky/tokei/releases/download/v12.0.4/tokei-x86_64-unknown-linux-gnu.tar.gz
+RUN tar -xvf tokei-x86_64-unknown-linux-gnu.tar.gz
+RUN rm tokei-x86_64-unknown-linux-gnu.tar.gz
+RUN mv tokei /usr/bin/tokei
