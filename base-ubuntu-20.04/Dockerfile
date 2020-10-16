@@ -24,6 +24,11 @@ RUN rm bat-v0.16.0-x86_64-unknown-linux-gnu.tar.gz
 RUN mv bat-v0.16.0-x86_64-unknown-linux-gnu/bat /usr/bin/bat
 RUN rm -rf bat-v0.16.0-x86_64-unknown-linux-gnu
 
+RUN wget https://github.com/dandavison/delta/releases/download/0.4.4/delta-0.4.4-x86_64-unknown-linux-gnu.tar.gz
+RUN tar -xvf delta-0.4.4-x86_64-unknown-linux-gnu.tar.gz
+RUN rm delta-0.4.4-x86_64-unknown-linux-gnu.tar.gz
+RUN mv delta-0.4.4-x86_64-unknown-linux-gnu/delta /usr/bin/delta
+
 RUN wget https://github.com/Byron/dua-cli/releases/download/v2.10.2/dua-v2.10.2-x86_64-unknown-linux-musl.tar.gz
 RUN tar -xvf dua-v2.10.2-x86_64-unknown-linux-musl.tar.gz
 RUN rm dua-v2.10.2-x86_64-unknown-linux-musl.tar.gz
