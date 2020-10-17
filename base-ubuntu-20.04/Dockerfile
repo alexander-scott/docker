@@ -11,6 +11,7 @@ RUN apt install --assume-yes --fix-broken \
     git \
     gnupg \
     htop \
+    locales \    
     python3 \
     python3-pip \
     sudo \
