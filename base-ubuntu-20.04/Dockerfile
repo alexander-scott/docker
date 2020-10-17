@@ -37,3 +37,5 @@ COPY .gitconfig /root
 
 RUN cp /root/.zshrc /etc/zsh/zshrc
 
+CMD /bin/zsh
+
