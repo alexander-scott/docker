@@ -18,6 +18,8 @@ RUN apt install --assume-yes --fix-broken \
 
 RUN locale-gen en_US.UTF-8
 
+RUN chmod a+rx /root
+
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/mihaigalos/utils/master/setmeup/setup_oh_my_zsh.sh)"
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/mihaigalos/utils/master/setmeup/setup_vim.sh)"
 
