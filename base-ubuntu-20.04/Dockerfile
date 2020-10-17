@@ -1,10 +1,5 @@
 FROM ubuntu:20.04
 
-RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment
-RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
-RUN echo "LANG=en_US.UTF-8" > /etc/locale.conf
-RUN locale-gen en_US.UTF-8
-
 RUN apt update 
 RUN apt install --assume-yes --fix-broken \
     curl \
@@ -20,6 +15,8 @@ RUN apt install --assume-yes --fix-broken \
     vim \
     wget \
     zsh
+
+RUN locale-gen en_US.UTF-8
 
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/mihaigalos/utils/master/setmeup/setup_oh_my_zsh.sh)"
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/mihaigalos/utils/master/setmeup/setup_vim.sh)"
