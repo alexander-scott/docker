@@ -36,6 +36,7 @@ RUN url-install https://github.com/XAMPPRocky/tokei/releases/download/v12.0.4/to
 COPY .gitconfig /root
 
 RUN cp /root/.zshrc /etc/zsh/zshrc
+RUN echo '[ ! -f "/home/$USER/.gitconfig" ] && ln -s /root/.gitconfig /home/$USER/' >> /etc/zsh/zshrc
 
 CMD /bin/zsh
 
