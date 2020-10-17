@@ -45,4 +45,4 @@ RUN tar -xvf tokei-x86_64-unknown-linux-gnu.tar.gz
 RUN rm tokei-x86_64-unknown-linux-gnu.tar.gz
 RUN mv tokei /usr/bin/tokei
 
-COPY .gitconfig .
+COPY .gitconfig /root
