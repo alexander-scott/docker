@@ -44,3 +44,5 @@ RUN wget https://github.com/XAMPPRocky/tokei/releases/download/v12.0.4/tokei-x86
 RUN tar -xvf tokei-x86_64-unknown-linux-gnu.tar.gz
 RUN rm tokei-x86_64-unknown-linux-gnu.tar.gz
 RUN mv tokei /usr/bin/tokei
+
+COPY .gitconfig .
