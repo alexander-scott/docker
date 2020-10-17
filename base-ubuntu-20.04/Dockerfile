@@ -34,4 +34,6 @@ RUN url-install https://github.com/ogham/exa/releases/download/v0.9.0/exa-linux-
 RUN url-install https://github.com/XAMPPRocky/tokei/releases/download/v12.0.4/tokei-x86_64-unknown-linux-gnu.tar.gz
 
 COPY .gitconfig /root
+
+RUN chmod a+rx /root/.zshrc
 CMD [ "source /root/.zshrc", "zsh"]
