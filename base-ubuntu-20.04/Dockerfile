@@ -19,8 +19,9 @@ RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/mihaigalos/utils/mas
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/mihaigalos/utils/master/setmeup/setup_vim.sh)"
 
 RUN wget https://raw.githubusercontent.com/mihaigalos/utils/master/url-install/url-install.sh
+RUN chmod a+x url-install.sh
 RUN cp url-install.sh /usr/bin/url-install
-RUN cp url-install.sh url-install
+RUN mv url-install.sh url-install
 
 RUN url-install https://github.com/sharkdp/bat/releases/download/v0.16.0/bat-v0.16.0-x86_64-unknown-linux-gnu.tar.gz
 RUN url-install https://github.com/dandavison/delta/releases/download/0.4.4/delta-0.4.4-x86_64-unknown-linux-gnu.tar.gz
