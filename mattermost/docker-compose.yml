@@ -1,0 +1,18 @@
+# docker run --name mattermost-preview -d --publish 8065:8065 --add-host dockerhost:127.0.0.1 mattermost/mattermost-preview
+
+version: "3"
+services:
+  worker:
+    image: mattermost/mattermost-preview
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 3
+        window: 120s
+    ports:
+      - 8065:8065
+    extra_hosts:
+        dockerhost: 127.0.0.1
