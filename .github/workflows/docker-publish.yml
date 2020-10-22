@@ -72,7 +72,7 @@ jobs:
               IMAGE_NAME=$(echo $FOLDER | sed -e "s,/,,g")$DOCKERFILE_SUFFIX
               if [ -f Dockerfile$DOCKERFILE_SUFFIX ]; then
 
-                docker build . --file Dockerfile$DOCKERFILE_SUFFIX "${PLATFORM}" --tag $IMAGE_NAME
+                docker build . --file Dockerfile$DOCKERFILE_SUFFIX ${PLATFORM} --tag $IMAGE_NAME
 
                 IMAGE_ID=docker.pkg.github.com/"${GITHUB_REPO}"/$IMAGE_NAME
 
@@ -137,7 +137,7 @@ jobs:
               IMAGE_NAME=$(echo $FOLDER | sed -e "s,/,,g")$DOCKERFILE_SUFFIX
               if [ -f Dockerfile$DOCKERFILE_SUFFIX ]; then
 
-                docker build . --file Dockerfile$DOCKERFILE_SUFFIX "${PLATFORM}" --tag $IMAGE_NAME
+                docker build . --file Dockerfile$DOCKERFILE_SUFFIX ${PLATFORM} --tag $IMAGE_NAME
 
                 IMAGE_ID=docker.pkg.github.com/"${GITHUB_REPO}"/$IMAGE_NAME
 
