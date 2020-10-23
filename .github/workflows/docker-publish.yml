@@ -41,6 +41,7 @@ jobs:
   # Push image to GitHub Packages.
   # See also https://docs.docker.com/docker-hub/builds/
   build-linux-amd64:
+    name: Build & push linux/amd64
     needs: test
 
     runs-on: ubuntu-latest
