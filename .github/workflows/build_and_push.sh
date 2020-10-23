@@ -37,16 +37,21 @@ function push() {
 
 }
 
+function main() {
 
-FOLDERS=$(ls -d */)
-for FOLDER in $FOLDERS; do
-pushd $FOLDER
-    export IMAGE_NAME=$(echo $FOLDER | sed -e "s,/,,g")$DOCKERFILE_SUFFIX
-    if [ -f Dockerfile$DOCKERFILE_SUFFIX ]; then
+    FOLDERS=$(ls -d */)
+    for FOLDER in $FOLDERS; do
+    pushd $FOLDER
+        export IMAGE_NAME=$(echo $FOLDER | sed -e "s,/,,g")$DOCKERFILE_SUFFIX
+        if [ -f Dockerfile$DOCKERFILE_SUFFIX ]; then
 
-        docker build . --file Dockerfile$DOCKERFILE_SUFFIX ${PLATFORM} --tag $IMAGE_NAME
-        set_variables
-        push    
-    fi
-popd
-done
+            docker build . --file Dockerfile$DOCKERFILE_SUFFIX ${PLATFORM} --tag $IMAGE_NAME
+            set_variables
+            push    
+        fi
+    popd
+    done
+
+}
+
+main
