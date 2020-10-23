@@ -1,5 +1,9 @@
 #! /bin/bash
 
+function build() {
+    docker build . --file Dockerfile$DOCKERFILE_SUFFIX ${PLATFORM} --tag $IMAGE_NAME
+}
+
 function set_variables() {
 
     export IMAGE_ID=docker.pkg.github.com/"${GITHUB_REPO}"/$IMAGE_NAME
@@ -44,8 +48,7 @@ function main() {
     pushd $FOLDER
         export IMAGE_NAME=$(echo $FOLDER | sed -e "s,/,,g")$DOCKERFILE_SUFFIX
         if [ -f Dockerfile$DOCKERFILE_SUFFIX ]; then
-
-            docker build . --file Dockerfile$DOCKERFILE_SUFFIX ${PLATFORM} --tag $IMAGE_NAME
+            build
             set_variables
             push    
         fi
