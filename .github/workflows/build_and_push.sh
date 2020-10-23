@@ -1,19 +1,16 @@
 #! /bin/bash
 
-FOLDERS=$(ls -d */)
-for FOLDER in $FOLDERS; do
-pushd $FOLDER
-    IMAGE_NAME=$(echo $FOLDER | sed -e "s,/,,g")$DOCKERFILE_SUFFIX
-    if [ -f Dockerfile$DOCKERFILE_SUFFIX ]; then
-
+function build() {
     docker build . --file Dockerfile$DOCKERFILE_SUFFIX ${PLATFORM} --tag $IMAGE_NAME
+}
 
-    IMAGE_ID=docker.pkg.github.com/"${GITHUB_REPO}"/$IMAGE_NAME
+function set_variables() {
 
+    export IMAGE_ID=docker.pkg.github.com/"${GITHUB_REPO}"/$IMAGE_NAME
     IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
 
     # Strip git ref prefix from version
-    VERSION=$(echo "${GITHUB_REF}" | sed -e 's,.*/\(.*\),\1,')
+    export VERSION=$(echo "${GITHUB_REF}" | sed -e 's,.*/\(.*\),\1,')
 
     # Strip "v" prefix from tag name
     [[ "${GITHUB_REF}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
@@ -23,6 +20,10 @@ pushd $FOLDER
 
     echo IMAGE_ID=$IMAGE_ID
     echo VERSION=$VERSION
+
+}
+
+function push() {
 
     docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
     docker push $IMAGE_ID:$VERSION
@@ -37,6 +38,23 @@ pushd $FOLDER
         docker tag $IMAGE_NAME $IMAGE_ID:$TOOL_VERSION
         docker push $IMAGE_ID:$TOOL_VERSION
     fi
-    fi
-popd
-done
+
+}
+
+function main() {
+
+    FOLDERS=$(ls -d */)
+    for FOLDER in $FOLDERS; do
+    pushd $FOLDER
+        export IMAGE_NAME=$(echo $FOLDER | sed -e "s,/,,g")$DOCKERFILE_SUFFIX
+        if [ -f Dockerfile$DOCKERFILE_SUFFIX ]; then
+            build
+            set_variables
+            push    
+        fi
+    popd
+    done
+
+}
+
+main
