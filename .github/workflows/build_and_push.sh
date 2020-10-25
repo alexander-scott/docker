@@ -1,7 +1,7 @@
 #! /bin/bash
 
 function build() {
-    docker build . --file Dockerfile$DOCKERFILE_SUFFIX ${PLATFORM} --tag $IMAGE_NAME
+    time DOCKER_BUILDKIT=1 docker build . --file Dockerfile$DOCKERFILE_SUFFIX ${PLATFORM} --tag $IMAGE_NAME
 }
 
 function set_variables() {
