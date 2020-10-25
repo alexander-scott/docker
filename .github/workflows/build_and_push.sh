@@ -1,7 +1,14 @@
 #! /bin/bash
 
+set -eoux
+
 function build() {
-    time DOCKER_BUILDKIT=1 docker build . --file Dockerfile$DOCKERFILE_SUFFIX ${PLATFORM} --tag $IMAGE_NAME
+    if [ -z "${DOCKERFILE_SUFFIX}" ]; then
+        time DOCKER_BUILDKIT=1 docker build . --file Dockerfile$DOCKERFILE_SUFFIX ${PLATFORM} --tag $IMAGE_NAME
+    else 
+        # Buildkit cannot cross-build for i.e. arm64
+        time docker build . --file Dockerfile$DOCKERFILE_SUFFIX ${PLATFORM} --tag $IMAGE_NAME
+    fi
 }
 
 function set_variables() {
