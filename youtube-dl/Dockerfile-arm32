@@ -1,0 +1,8 @@
+FROM python:2-alpine
+
+COPY . /src
+WORKDIR src
+
+RUN pip install .
+CMD youtube-dl
+
