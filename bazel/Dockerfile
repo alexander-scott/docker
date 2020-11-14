@@ -1,4 +1,4 @@
-FROM docker.pkg.github.com/mihaigalos/docker/base-ubuntu-20.04:latest
+FROM docker.pkg.github.com/alexander-scott/docker/base-ubuntu-20.04:latest
 
 RUN curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor > bazel.gpg
 RUN mv bazel.gpg /etc/apt/trusted.gpg.d/
