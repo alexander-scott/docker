@@ -45,6 +45,7 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: true
       matrix:
         python-version: ["pypy3"]
 
@@ -71,6 +72,7 @@ jobs:
     name: Build & push linux/arm64
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: true
       matrix:
         platform: [linux/arm64]
     steps:
@@ -97,6 +99,7 @@ jobs:
     name: Build & push linux/arm32
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: true
       matrix:
         platform: [linux/arm/v7]
     steps:
@@ -105,7 +108,7 @@ jobs:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
         with:
-          platforms: arm/v7
+          platforms: linux/arm/v7
 
       - name: Log into GitHub Container Registry
         run: echo "${{ secrets.CR_PAT }}" | docker login https://docker.pkg.github.com -u ${{ github.actor }} --password-stdin
