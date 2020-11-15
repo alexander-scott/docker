@@ -1,0 +1,19 @@
+FROM docker.pkg.github.com/mihaigalos/docker/base-pi-arm32:latest
+
+MAINTAINER mihaigalos
+
+RUN apt-get update
+
+RUN apt-get -qy install \
+    cmake \
+    libssl-dev
+
+RUN git clone https://github.com/aws/aws-iot-device-sdk-python-v2.git
+RUN python3 -m pip install ./aws-iot-device-sdk-python-v2
+
+RUN apt-get -y autoremove \
+    &&  apt-get -y clean \
+    &&  apt-get -y purge \
+    &&  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+CMD ["/bin/zsh"]
