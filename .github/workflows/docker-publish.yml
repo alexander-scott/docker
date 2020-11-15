@@ -92,3 +92,29 @@ jobs:
           PLATFORM: --platform=${{ matrix.platform }}
         run: |
           ./.github/workflows/build_and_push.sh
+
+  build-linux-arm32:
+    name: Build & push linux/arm32
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        platform: [linux/arm32]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+        with:
+          platforms: arm32
+
+      - name: Log into GitHub Container Registry
+        run: echo "${{ secrets.CR_PAT }}" | docker login https://docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+
+      - name: Build and Push image to GitHub Container Registry
+        env:
+          DOCKERFILE_SUFFIX: -arm32
+          GITHUB_REF: ${{ github.ref }}
+          GITHUB_REPO: ${{ github.repository }}
+          PLATFORM: --platform=${{ matrix.platform }}
+        run: |
+          ./.github/workflows/build_and_push.sh
