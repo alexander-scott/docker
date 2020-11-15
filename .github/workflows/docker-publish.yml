@@ -98,14 +98,14 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        platform: [linux/arm32]
+        platform: [linux/arm/v7]
     steps:
       - uses: actions/checkout@v2
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
         with:
-          platforms: arm32
+          platforms: arm/v7
 
       - name: Log into GitHub Container Registry
         run: echo "${{ secrets.CR_PAT }}" | docker login https://docker.pkg.github.com -u ${{ github.actor }} --password-stdin
