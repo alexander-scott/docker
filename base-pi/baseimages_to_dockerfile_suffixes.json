@@ -1,4 +1,4 @@
 {
-    "arm32v7":"-arm32",
-    "arm64v8":"-arm64"
+    "arm32v7/debian": "-arm32",
+    "arm64v8/debian": "-arm64"
 }
