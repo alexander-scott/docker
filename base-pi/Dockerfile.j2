@@ -1,0 +1,28 @@
+FROM {{ architecture }}/debian
+
+MAINTAINER mihaigalos
+
+RUN apt-get update
+
+RUN apt-get -qy install \
+    curl \
+    gcc \
+    i2c-tools \
+    python3 \
+    ca-certificates \
+    git \
+    make \
+    python3-dev \
+    python3-pip \
+    sudo \
+    vim \
+    zsh
+
+RUN apt-get -y autoremove \
+    &&  apt-get -y clean \
+    &&  apt-get -y purge \
+    &&  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN pip3 install rpi.gpio
+
+CMD ["/bin/bash"]

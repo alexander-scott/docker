@@ -15,16 +15,16 @@ env:
   IMAGE_NAME: image
 
 jobs:
+
   # Run tests.
   # See also https://docs.docker.com/docker-hub/builds/automated-testing/
   test:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
-
       - name: Run tests
         run: |
+
           FOLDERS=$(ls -d */)
           for FOLDER in $FOLDERS; do
             pushd $FOLDER
@@ -41,7 +41,6 @@ jobs:
   build-linux-amd64:
     name: Build & push linux/amd64
     needs: test
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -51,6 +50,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      # 20201116 : currently no inheritance to put these steps in a base job
+      - name: Install require packages for generation
+        run: |
+          sudo apt-get install -y \
+            python3 \
+            jq
+          pip3 install --user --upgrade j2cli
+          sudo ln -s /home/runner/.local/bin/j2 /usr/local/bin/j2
+
+      - name: Generate Dockerfiles from *.j2 files
+        run: |
+          ./.github/workflows/generate_dockerfiles.sh
 
       - uses: "actions/setup-python@v2"
         with:
@@ -70,13 +81,27 @@ jobs:
   
   build-linux-arm64:
     name: Build & push linux/arm64
+    needs: test
     runs-on: ubuntu-latest
+
     strategy:
       fail-fast: true
       matrix:
         platform: [linux/arm64]
     steps:
       - uses: actions/checkout@v2
+      # 20201116 : currently no inheritance to put these steps in a base job
+      - name: Install require packages for generation
+        run: |
+          sudo apt-get install -y \
+            python3 \
+            jq
+          pip3 install --user --upgrade j2cli
+          sudo ln -s /home/runner/.local/bin/j2 /usr/local/bin/j2
+
+      - name: Generate Dockerfiles from *.j2 files
+        run: |
+          ./.github/workflows/generate_dockerfiles.sh
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -97,13 +122,27 @@ jobs:
 
   build-linux-arm32:
     name: Build & push linux/arm32
+    needs: test
     runs-on: ubuntu-latest
+
     strategy:
       fail-fast: true
       matrix:
         platform: [linux/arm/v7]
     steps:
       - uses: actions/checkout@v2
+      # 20201116 : currently no inheritance to put these steps in a base job
+      - name: Install require packages for generation
+        run: |
+          sudo apt-get install -y \
+            python3 \
+            jq
+          pip3 install --user --upgrade j2cli
+          sudo ln -s /home/runner/.local/bin/j2 /usr/local/bin/j2
+
+      - name: Generate Dockerfiles from *.j2 files
+        run: |
+          ./.github/workflows/generate_dockerfiles.sh
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
