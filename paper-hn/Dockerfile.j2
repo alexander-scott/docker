@@ -1,4 +1,4 @@
-FROM arm64v8/node:14.12
+FROM {{ baseimage }}
 
 RUN apt-get update
 RUN npm install http-server -g

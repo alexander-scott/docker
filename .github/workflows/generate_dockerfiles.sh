@@ -3,17 +3,17 @@
 set -oux
 
 function generate_dockerfiles_from_j2() {
-    declare -A architectures_to_suffixes=()
+    declare -A baseimages_to_dockerfile_suffixes=()
 
     while IFS= read -r -d '' key && IFS= read -r -d '' value; do
-        architectures_to_suffixes[$key]=$value
-    done < <(jq -j 'to_entries[] | (.key, "\u0000", .value, "\u0000")' <<<$(cat architectures.json))
+        baseimages_to_dockerfile_suffixes[$key]=$value
+    done < <(jq -j 'to_entries[] | (.key, "\u0000", .value, "\u0000")' <<<$(cat baseimages_to_dockerfile_suffixes.json))
 
 
-    for architecture in ${!architectures_to_suffixes[@]}; do
-        echo Generating Dockerfile"${architectures_to_suffixes[$architecture]}".
-        echo {\"architecture\":\"$architecture\"} |
-        j2 -f json Dockerfile.j2 > Dockerfile"${architectures_to_suffixes[$architecture]}"
+    for baseimage in ${!baseimages_to_dockerfile_suffixes[@]}; do
+        echo Generating Dockerfile"${baseimages_to_dockerfile_suffixes[$baseimage]}".
+        echo {\"baseimage\":\"$baseimage\"} |
+        j2 -f json Dockerfile.j2 > Dockerfile"${baseimages_to_dockerfile_suffixes[$baseimage]}"
     done
 }
 
