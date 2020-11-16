@@ -21,11 +21,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Run tests
         run: |
-          set -xuo
-          pwd
-          ls
+
           FOLDERS=$(ls -d */)
           for FOLDER in $FOLDERS; do
             pushd $FOLDER
@@ -50,6 +49,7 @@ jobs:
         python-version: ["pypy3"]
 
     steps:
+      - uses: actions/checkout@v2
       # 20201116 : currently no inheritance to put these steps in a base job
       - name: Install require packages for generation
         run: |
@@ -89,6 +89,7 @@ jobs:
       matrix:
         platform: [linux/arm64]
     steps:
+      - uses: actions/checkout@v2
       # 20201116 : currently no inheritance to put these steps in a base job
       - name: Install require packages for generation
         run: |
@@ -129,6 +130,7 @@ jobs:
       matrix:
         platform: [linux/arm/v7]
     steps:
+      - uses: actions/checkout@v2
       # 20201116 : currently no inheritance to put these steps in a base job
       - name: Install require packages for generation
         run: |
