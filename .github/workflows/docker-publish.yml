@@ -20,9 +20,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: |
-        sudo apt-get install -y jq
+        sudo apt-get install -y \
+          python3 \
+          jq
         pip3 install --user --upgrade j2cli
-        cat /usr/local/bin/j2
+        sudo ln -s /home/runner/.local/bin/j2 /usr/local/bin/j2
         j2 --version
 
   generate-dockerfiles-from-j2:
