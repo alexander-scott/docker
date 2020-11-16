@@ -1,5 +1,7 @@
 #! /bin/bash
 
+set -oux
+
 function generate_dockerfiles_from_j2() {
     declare -A architectures_to_suffixes=()
 
