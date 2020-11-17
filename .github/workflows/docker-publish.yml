@@ -50,6 +50,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
       # 20201116 : currently no inheritance to put these steps in a base job
       - name: Install require packages for generation
         run: |
@@ -90,6 +91,7 @@ jobs:
         platform: [linux/arm64]
     steps:
       - uses: actions/checkout@v2
+
       # 20201116 : currently no inheritance to put these steps in a base job
       - name: Install require packages for generation
         run: |
@@ -131,6 +133,7 @@ jobs:
         platform: [linux/arm/v7]
     steps:
       - uses: actions/checkout@v2
+
       # 20201116 : currently no inheritance to put these steps in a base job
       - name: Install require packages for generation
         run: |
