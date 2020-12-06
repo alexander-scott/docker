@@ -2,18 +2,6 @@
 
 int main()
 {
-
-    uint8_t in = PINB;
-    if (in & (PINB))
-    {
-        PORTC = 0x05;
-    }
-    
-    in = PINB & (1 << 2);
-    
-    if (in & (PINB))
-    {
-        PORTC = 0x50;
-    }
+    PORTC = PINB ? 0x05 : 0;
+    PORTC = PINB & (1 << 2) ? 0x50 : 1;
 }
-
