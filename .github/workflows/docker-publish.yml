@@ -18,150 +18,164 @@ env:
 
 jobs:
 
-  # Run tests.
-  # See also https://docs.docker.com/docker-hub/builds/automated-testing/
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Run tests
-        run: |
+  # # Run tests.
+  # # See also https://docs.docker.com/docker-hub/builds/automated-testing/
+  # test:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Run tests
+  #       run: |
 
-          FOLDERS=$(ls -d */)
-          for FOLDER in $FOLDERS; do
-            pushd $FOLDER
-              if [ -f docker-compose.test.yml ]; then
-                docker-compose --file docker-compose.test.yml build
-              elif [ -f Dockerfile ]; then
-                echo "Skipping tests for $FOLDER/Dockerfile."
-              fi
-            popd
-          done
+  #         FOLDERS=$(ls -d */)
+  #         for FOLDER in $FOLDERS; do
+  #           pushd $FOLDER
+  #             if [ -f docker-compose.test.yml ]; then
+  #               docker-compose --file docker-compose.test.yml build
+  #             elif [ -f Dockerfile ]; then
+  #               echo "Skipping tests for $FOLDER/Dockerfile."
+  #             fi
+  #           popd
+  #         done
 
-  # Push image to GitHub Packages.
-  # See also https://docs.docker.com/docker-hub/builds/
-  build-linux-amd64:
-    name: Build & push linux/amd64
-    needs: test
-    runs-on: ubuntu-latest
+  # # Push image to GitHub Packages.
+  # # See also https://docs.docker.com/docker-hub/builds/
+  # build-linux-amd64:
+  #   name: Build & push linux/amd64
+  #   needs: test
+  #   runs-on: ubuntu-latest
 
-    strategy:
-      fail-fast: true
-      matrix:
-        python-version: ["pypy3"]
+  #   strategy:
+  #     fail-fast: true
+  #     matrix:
+  #       python-version: ["pypy3"]
 
-    steps:
-      - uses: actions/checkout@v2
+  #   steps:
+  #     - uses: actions/checkout@v2
 
-      # 20201116 : currently no inheritance to put these steps in a base job
-      - name: Install require packages for generation
-        run: |
-          sudo apt-get install -y \
-            python3 \
-            jq
-          pip3 install --user --upgrade j2cli
-          sudo ln -s /home/runner/.local/bin/j2 /usr/local/bin/j2
+  #     # 20201116 : currently no inheritance to put these steps in a base job
+  #     - name: Install require packages for generation
+  #       run: |
+  #         sudo apt-get install -y \
+  #           python3 \
+  #           jq
+  #         pip3 install --user --upgrade j2cli
+  #         sudo ln -s /home/runner/.local/bin/j2 /usr/local/bin/j2
 
-      - name: Generate Dockerfiles from *.j2 files
-        run: |
-          ./.github/workflows/generate_dockerfiles.sh
+  #     - name: Generate Dockerfiles from *.j2 files
+  #       run: |
+  #         ./.github/workflows/generate_dockerfiles.sh
 
-      - uses: "actions/setup-python@v2"
-        with:
-          python-version: "${{ matrix.python-version }}"
+  #     - uses: "actions/setup-python@v2"
+  #       with:
+  #         python-version: "${{ matrix.python-version }}"
 
-      - name: Log into GitHub Container Registry
-        run: echo "${{ secrets.CR_PAT }}" | docker login https://docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+  #     - name: Log into GitHub Container Registry
+  #       run: echo "${{ secrets.CR_PAT }}" | docker login https://docker.pkg.github.com -u ${{ github.actor }} --password-stdin
 
-      - name: Build and Push image to GitHub Container Registry
-        env:
-          DOCKERFILE_SUFFIX: ""
-          GITHUB_REF: ${{ github.ref }}
-          GITHUB_REPO: ${{ github.repository }}
-          PLATFORM: ""
-        run: |
-          ./.github/workflows/build_and_push.sh
+  #     - name: Build and Push image to GitHub Container Registry
+  #       env:
+  #         DOCKERFILE_SUFFIX: ""
+  #         GITHUB_REF: ${{ github.ref }}
+  #         GITHUB_REPO: ${{ github.repository }}
+  #         PLATFORM: ""
+  #       run: |
+  #         ./.github/workflows/build_and_push.sh
   
-  build-linux-arm64:
-    name: Build & push linux/arm64
-    needs: test
+  # build-linux-arm64:
+  #   name: Build & push linux/arm64
+  #   needs: test
+  #   runs-on: ubuntu-latest
+
+  #   strategy:
+  #     fail-fast: true
+  #     matrix:
+  #       platform: [linux/arm64]
+  #   steps:
+  #     - uses: actions/checkout@v2
+
+  #     # 20201116 : currently no inheritance to put these steps in a base job
+  #     - name: Install require packages for generation
+  #       run: |
+  #         sudo apt-get install -y \
+  #           python3 \
+  #           jq
+  #         pip3 install --user --upgrade j2cli
+  #         sudo ln -s /home/runner/.local/bin/j2 /usr/local/bin/j2
+
+  #     - name: Generate Dockerfiles from *.j2 files
+  #       run: |
+  #         ./.github/workflows/generate_dockerfiles.sh
+
+  #     - name: Set up QEMU
+  #       uses: docker/setup-qemu-action@v1
+  #       with:
+  #         platforms: arm64
+
+  #     - name: Log into GitHub Container Registry
+  #       run: echo "${{ secrets.CR_PAT }}" | docker login https://docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+
+  #     - name: Build and Push image to GitHub Container Registry
+  #       env:
+  #         DOCKERFILE_SUFFIX: -arm64
+  #         GITHUB_REF: ${{ github.ref }}
+  #         GITHUB_REPO: ${{ github.repository }}
+  #         PLATFORM: --platform=${{ matrix.platform }}
+  #       run: |
+  #         ./.github/workflows/build_and_push.sh
+
+  # build-linux-arm32:
+  #   name: Build & push linux/arm32
+  #   needs: test
+  #   runs-on: ubuntu-latest
+
+  #   strategy:
+  #     fail-fast: true
+  #     matrix:
+  #       platform: [linux/arm/v7]
+  #   steps:
+  #     - uses: actions/checkout@v2
+
+  #     # 20201116 : currently no inheritance to put these steps in a base job
+  #     - name: Install require packages for generation
+  #       run: |
+  #         sudo apt-get install -y \
+  #           python3 \
+  #           jq
+  #         pip3 install --user --upgrade j2cli
+  #         sudo ln -s /home/runner/.local/bin/j2 /usr/local/bin/j2
+
+  #     - name: Generate Dockerfiles from *.j2 files
+  #       run: |
+  #         ./.github/workflows/generate_dockerfiles.sh
+
+  #     - name: Set up QEMU
+  #       uses: docker/setup-qemu-action@v1
+  #       with:
+  #         platforms: linux/arm/v7
+
+  #     - name: Log into GitHub Container Registry
+  #       run: echo "${{ secrets.CR_PAT }}" | docker login https://docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+
+  #     - name: Build and Push image to GitHub Container Registry
+  #       env:
+  #         DOCKERFILE_SUFFIX: -arm32
+  #         GITHUB_REF: ${{ github.ref }}
+  #         GITHUB_REPO: ${{ github.repository }}
+  #         PLATFORM: --platform=${{ matrix.platform }}
+  #       run: |
+  #         ./.github/workflows/build_and_push.sh
+  push_timestamp:
+    name: Timestamp latest
+    #needs: test
     runs-on: ubuntu-latest
-
-    strategy:
-      fail-fast: true
-      matrix:
-        platform: [linux/arm64]
     steps:
-      - uses: actions/checkout@v2
-
-      # 20201116 : currently no inheritance to put these steps in a base job
-      - name: Install require packages for generation
-        run: |
-          sudo apt-get install -y \
-            python3 \
-            jq
-          pip3 install --user --upgrade j2cli
-          sudo ln -s /home/runner/.local/bin/j2 /usr/local/bin/j2
-
-      - name: Generate Dockerfiles from *.j2 files
-        run: |
-          ./.github/workflows/generate_dockerfiles.sh
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-        with:
-          platforms: arm64
-
-      - name: Log into GitHub Container Registry
-        run: echo "${{ secrets.CR_PAT }}" | docker login https://docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-
-      - name: Build and Push image to GitHub Container Registry
-        env:
-          DOCKERFILE_SUFFIX: -arm64
-          GITHUB_REF: ${{ github.ref }}
-          GITHUB_REPO: ${{ github.repository }}
-          PLATFORM: --platform=${{ matrix.platform }}
-        run: |
-          ./.github/workflows/build_and_push.sh
-
-  build-linux-arm32:
-    name: Build & push linux/arm32
-    needs: test
-    runs-on: ubuntu-latest
-
-    strategy:
-      fail-fast: true
-      matrix:
-        platform: [linux/arm/v7]
-    steps:
-      - uses: actions/checkout@v2
-
-      # 20201116 : currently no inheritance to put these steps in a base job
-      - name: Install require packages for generation
-        run: |
-          sudo apt-get install -y \
-            python3 \
-            jq
-          pip3 install --user --upgrade j2cli
-          sudo ln -s /home/runner/.local/bin/j2 /usr/local/bin/j2
-
-      - name: Generate Dockerfiles from *.j2 files
-        run: |
-          ./.github/workflows/generate_dockerfiles.sh
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-        with:
-          platforms: linux/arm/v7
-
-      - name: Log into GitHub Container Registry
-        run: echo "${{ secrets.CR_PAT }}" | docker login https://docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-
-      - name: Build and Push image to GitHub Container Registry
-        env:
-          DOCKERFILE_SUFFIX: -arm32
-          GITHUB_REF: ${{ github.ref }}
-          GITHUB_REPO: ${{ github.repository }}
-          PLATFORM: --platform=${{ matrix.platform }}
-        run: |
-          ./.github/workflows/build_and_push.sh
+    - uses: actions/checkout@v2
+    - name: Generate file with timestamp and push it to GitHub
+      run: |
+        timestamp_file=latest_$(date '+%Y%m%d_%H:%M:%S')
+        touch $timestamp_file
+        git config --global user.name "CI"
+        git add $timestamp_file
+        git commit -m "Commit generated file"
+        git push
