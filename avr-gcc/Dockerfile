@@ -14,17 +14,20 @@ RUN apt install --assume-yes --fix-broken \
     wget \
     zsh 
 
-COPY . /tmp/demo
+COPY barebones /tmp/demo/barebones
 RUN cd /tmp/demo/barebones && avr-gcc -D __AVR__  -fstack-usage -std=c++14 -mmcu=atmega328p -Os demo_application.cpp -o main.elf && avr-nm --size-sort -C -r --radix=d main.elf
+RUN rm -rf /tmp/demo
+
 
 RUN wget https://github.com/bazelbuild/bazelisk/releases/download/v1.7.4/bazelisk-linux-amd64 -O /usr/bin/bazelisk
 RUN chmod a+x /usr/bin/bazelisk
 RUN ln -s /usr/bin/bazelisk /usr/bin/bazel
 RUN bazel version
 
-RUN cd /tmp/demo/bazelized && bazel build //...
-RUN cd /tmp/demo/bazelized && bazel build --config=328p --verbose_failures --color=yes 2>&1 //:uartboot_hex
-RUN rm -rf /tmp/demo
+COPY bazelized /src
+RUN cd /src && bazel build //...
+RUN cd /src && bazel build --config=328p --verbose_failures --color=yes 2>&1 //:uartboot_hex
+RUN rm -rf /src
 
 CMD /bin/zsh
 
