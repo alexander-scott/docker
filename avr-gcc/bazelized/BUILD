@@ -23,27 +23,6 @@ cc_test(
     ],
 )
 
-# cc_test(
-#         name = "unit/" + unit_name,
-#         srcs = glob([
-#             "mcu/uartboot.cpp",
-#             "mcu/uartboot.h",
-#             "mcu/config.h",
-#             "mcu/testing_helper.h",
-#             "test/mcu/uartboot_testing_implementations.cpp",
-#             "test/mcu/unit/" + unit_name + ".cpp",
-#         ]),
-#         copts = DEFAULT_TEST_COMPILE_OPTIONS,
-#         includes = [
-#             "mcu",
-#         ],
-#         linkopts = DEFAULT_TEST_LINK_OPTIONS,
-#         tags = ["unit"],
-#         deps = DEFAULT_TEST_DEPS + [
-#             "@avr-bootloader-common",
-#         ],
-#     )
-
 hex(
     name = "uartboot_hex",
     src = ":uartboot.elf",
