@@ -1,7 +1,10 @@
 FROM ubuntu:20.04
 
+ENV TZ=Europe/Berlin
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 RUN apt update 
-RUN apt install --assume-yes --fix-broken \
+RUN DEBIAN_FRONTEND=noninteractive apt install --yes --fix-broken \
     curl \
     git \
     gnupg \
