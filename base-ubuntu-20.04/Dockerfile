@@ -30,6 +30,9 @@ RUN wget https://raw.githubusercontent.com/mihaigalos/utils/master/url-install/u
 RUN chmod a+x url-install.sh
 RUN mv url-install.sh /usr/bin/url-install
 
+RUN mkdir -p ~/.local/bin
+RUN PATH=~/.local/bin:$PATH
+
 RUN url-install \
     https://github.com/sharkdp/bat/releases/download/v0.16.0/bat-v0.16.0-x86_64-unknown-linux-gnu.tar.gz \
     https://github.com/dandavison/delta/releases/download/0.4.4/delta-0.4.4-x86_64-unknown-linux-gnu.tar.gz \
