@@ -1,6 +1,11 @@
 Small static checks ran on each commit using the `pre-commit` toolbox.
+Installation mounts the whole repo into the docker and performs the checks on each commit.
+Configuration performed in the `.pre-commit-config` yaml file.
+##### Prerequisites
 
-Usage:
+`.pre-commit-config` needs to be present in the root of the repo. 
+
+##### Installation:
 
 ```bash
 $ cat <<EOF > .git/hooks/pre-commit
@@ -10,6 +15,6 @@ $ cat <<EOF > .git/hooks/pre-commit
 EOF
 ```
 
-Screenshot:
+##### Screenshot
 
 ![alt text](screenshots/demo.png "Demo checks.")
