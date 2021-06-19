@@ -1,0 +1,37 @@
+default:
+  @just --list
+
+docker_image := "pre-commit"
+
+build_docker:
+    #! /bin/bash
+    docker buildx build --platform linux/amd64,linux/arm64 -t {{docker_image}} docker/.
+
+# Install docker buildx and other goodies for multi arch deployment.
+setup:
+    #! /bin/bash
+    sudo apt update
+    sudo apt-get install -y binfmt-support qemu-user-static
+    sudo apt-get install -y docker.io
+    sudo usermod -aG docker $USER
+
+    sudo apt-get install -y jq
+    mkdir -p ~/.docker/cli-plugins
+    BUILDX_URL=$(curl https://api.github.com/repos/docker/buildx/releases/latest |  jq  '.assets[].browser_download_url' | grep linux-arm64)
+    wget $BUILDX_URL -O ~/.docker/cli-plugins/docker-build
+    chmod +x ~/.docker/cli-plugins/docker-buildx
+
+    docker buildx create --name mbuilder
+    docker buildx inspect --bootstrap
+
+# Install pre-commit toolkit as a pre-commit step in git. Run exactly once, overwritten by "pre-commit install"
+install_hooks:
+    #! /bin/bash
+    cat <<EOF > .git/hooks/pre-commit
+    docker run --rm -t -v $PWD:/src -v ~/.cache/pre-commit:/root/.cache/pre-commit {{docker_image}} 
+    EOF
+    chmod +x .git/hooks/pre-commit
+
+run:
+    #! /bin/bash
+    docker run --rm -v $(realpath .):/src pre-commit

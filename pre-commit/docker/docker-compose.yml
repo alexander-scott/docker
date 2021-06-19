@@ -1,0 +1,7 @@
+version: "3"
+services:
+  worker:
+    image: pre-commit
+    volumes:
+      - ./:/src
+      - ~/.cache/pre-commit:/root/.cache/pre-commit
