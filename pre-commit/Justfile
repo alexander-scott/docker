@@ -35,7 +35,3 @@ install_hooks:
     docker run --rm -t -v $PWD:/src -v ~/.cache/pre-commit:/root/.cache/pre-commit {{docker_image}} 
     EOF
     chmod +x .git/hooks/pre-commit
-
-run:
-    #! /bin/bash
-    docker run --rm -v $(realpath .):/src pre-commit
