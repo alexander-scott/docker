@@ -54,6 +54,12 @@ function main() {
             set_variables
             push    
         fi
+        if [ -f docker/Dockerfile$DOCKERFILE_SUFFIX ]; then
+            cd docker
+            build
+            set_variables
+            push    
+        fi
     popd
     done
 
