@@ -7,6 +7,10 @@ build_docker:
     #! /bin/bash
     docker buildx build --platform linux/amd64,linux/arm64 -t {{docker_image}} docker/.
 
+build_docker_amd64:
+    #! /bin/bash
+    docker buildx build --load --platform linux/amd64 -t {{docker_image}} docker/.
+
 # Install docker buildx and other goodies for multi arch deployment.
 setup:
     #! /bin/bash
@@ -21,7 +25,7 @@ setup:
     wget $BUILDX_URL -O ~/.docker/cli-plugins/docker-build
     chmod +x ~/.docker/cli-plugins/docker-buildx
 
-    docker buildx create --name mbuilder
+    docker buildx create --use --name mbuilder
     docker buildx inspect --bootstrap
 
 # Install pre-commit toolkit as a pre-commit step in git. Run exactly once, overwritten by "pre-commit install"
