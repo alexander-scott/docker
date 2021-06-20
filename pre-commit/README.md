@@ -11,7 +11,9 @@ Configuration performed in the `.pre-commit-config` yaml file.
 $ $(cat <<EOF > .git/hooks/pre-commit
     docker run --rm -t -v $PWD:/src -v ~/.cache/pre-commit:/root/.cache/pre-commit pre-commit
 EOF
-) && chmod +x .git/hooks/pre-commit
+) &&\
+chmod +x .git/hooks/pre-commit &&\
+wget https://raw.githubusercontent.com/mihaigalos/docker/master/pre-commit/.pre-commit-config.yaml
 ```
 
 ##### Screenshot
