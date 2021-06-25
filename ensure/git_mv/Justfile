@@ -1,0 +1,32 @@
+default:
+  @just --list
+ 
+base_image := "aarch64/alpine:3.5"
+docker_container_registry := "725726492038.dkr.ecr.eu-central-1.amazonaws.com"
+
+
+build:
+
+create_demo_folder:
+    #! /bin/sh
+    cd $(mktemp -d)
+    echo $PWD
+    git init .
+
+    touch foo
+    git add foo
+    git commit -m "Initial commit"
+
+    touch bar
+    git add bar
+    git commit -m "Bar"
+    mkdir -p folder_bar
+    git mv bar folder_bar/
+
+    rm foo
+    mkdir -p folder_foo
+    touch folder_foo/foo
+    git add folder_foo/foo
+
+    git status --porcelain --untracked-files=no > diff.log
+
