@@ -3,9 +3,15 @@ default:
 
 docker_image := "pre-commit"
 
+build_docker_with_buildkit platform="linux/amd64":
+    #! /bin/bash
+    platform_short=$(echo {{platform}} | cut -d '/' -f2)
+    docker buildx build --platform {{platform}} -t {{docker_image}}  --output "type=oci,dest={{docker_image}}_${platform_short}.tar" docker/. && gzip {{docker_image}}_${platform_short}.tar
+
 build_docker:
     #! /bin/bash
-    docker buildx build --platform linux/amd64,linux/arm64 -t {{docker_image}} docker/.
+    docker build -t {{docker_image}} docker/.
+
 
 build_docker_amd64:
     #! /bin/bash
