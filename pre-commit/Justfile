@@ -36,6 +36,10 @@ setup:
 
 test: build_docker
     #! /bin/bash
+    function err() {
+        echo -e "\e[1;31m${@}\e[0m" >&2
+        exit 1
+    }
     TEMP_FOLDER=$(mktemp -d)
     cp Justfile .pre-commit-config.yaml $TEMP_FOLDER
     pushd $TEMP_FOLDER
@@ -50,9 +54,9 @@ test: build_docker
     git commit -m "Apply black"
     git add foo.py
     git commit -m "Final form"
-    grep 'coding: utf-8' foo.py > /dev/null || exit 1
-    grep 'print("Hello World")' foo.py >/dev/null || exit 1
-    [[ "root" == *"$(stat -c \"%U\" foo.py)"* ]] && exit 2
+    grep 'coding: utf-8' foo.py > /dev/null || err "ERROR: No encoding info in file"
+    grep 'print("Hello World")' foo.py >/dev/null || err "ERROR: No black formatting perfomed"
+    [[ "root" == *"$(stat -c \"%U\" foo.py)"* ]] && err "ERROR: File owned by root, not by current user."
     popd > /dev/null
 
 # Install pre-commit toolkit as a pre-commit step in git. Run exactly once, overwritten by "pre-commit install"
