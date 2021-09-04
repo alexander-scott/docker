@@ -34,6 +34,27 @@ setup:
     docker buildx create --use --name mbuilder
     docker buildx inspect --bootstrap
 
+test: build_docker
+    #! /bin/bash
+    TEMP_FOLDER=$(mktemp -d)
+    cp Justfile .pre-commit-config.yaml $TEMP_FOLDER
+    pushd $TEMP_FOLDER
+    git init .
+    just install_hooks
+    echo "print   (  'Hello World'  )   " > foo.py
+    git add foo.py
+    git commit -m "Commit demo" || true
+    git add foo.py
+    git commit -m "Add Encoding" || true
+    git add foo.py
+    git commit -m "Apply black"
+    git add foo.py
+    git commit -m "Final form"
+    grep 'coding: utf-8' foo.py > /dev/null || exit 1
+    grep 'print("Hello World")' foo.py >/dev/null || exit 1
+    [[ "root" == *"$(stat -c \"%U\" foo.py)"* ]] && exit 2
+    popd > /dev/null
+
 # Install pre-commit toolkit as a pre-commit step in git. Run exactly once, overwritten by "pre-commit install"
 install_hooks:
     #! /bin/bash
