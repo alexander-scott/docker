@@ -23,6 +23,4 @@ RUN apt-get -y autoremove \
     &&  apt-get -y purge \
     &&  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN pip3 install rpi.gpio
-
 CMD ["/bin/bash"]
