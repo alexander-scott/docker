@@ -11,6 +11,6 @@ while true
 do
     node --experimental-modules ./bin/generate-html.mjs    
     sleep $REFRESH_INTERVAL
-    rm cache/hn/*.json
+    rm cache/hacker-news/*.json
 done
 
