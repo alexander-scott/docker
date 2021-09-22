@@ -1,4 +1,4 @@
-FROM docker.pkg.github.com/mihaigalos/docker/base-ubuntu-20.04:latest
+FROM docker.pkg.github.com/mihaigalos/docker/base-amd64
 
 RUN apt-get update
 
