@@ -1,0 +1,12 @@
+default:
+    @just --list
+
+tool := "openssh-server"
+docker_image_version := "0.0.1"
+docker_image := tool + ":" + docker_image_version
+
+build:
+    docker build -t {{docker_image}} .
+
+run:
+    docker-compose up
