@@ -1,0 +1,9 @@
+---
+- name: Install roles
+  hosts: all
+  remote_user: user
+  become: yes
+  become_method: sudo
+
+  roles:
+    - zsh
