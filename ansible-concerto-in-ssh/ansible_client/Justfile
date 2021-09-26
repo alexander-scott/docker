@@ -10,4 +10,4 @@ build:
 
 run:
     touch ~/.docker_history
-    docker run -it --rm -v $PWD/../:/src -v ~/.docker_history:/home/$USER/.docker_history -e ANSIBLE_PORT=2222 -e HISTFILE=/home/$USER/.docker_history -e "USER=$USER" --user 1000:1000 -v /etc/passwd:/etc/passwd:ro -v /etc/group:/etc/group:ro -v $(realpath ../ssh_server/keys):/home/$USER/.ssh -v $(mktemp -d):/home/$USER/.ansible --network host {{docker_image}} /bin/bash -c "cd ansible_client/ && ansible-playbook -i hosts -e \"ansible_port=2222\" site.yml"
+    docker run -it --rm -v $PWD/../:/src -v ~/.docker_history:/root/.docker_history -e ANSIBLE_PORT=2222 -e HISTFILE=/root/.docker_history -v $(realpath ../ssh_server/keys):/root/.ssh -v $(mktemp -d):/root/.ansible --network host {{docker_image}} /bin/bash -c "cd ansible_client/ && ansible-playbook -i hosts -e \"ansible_port=2222\" site.yml"
