@@ -1,0 +1,14 @@
+default:
+    @just --list
+
+test:
+    #!/bin/bash
+    function err() {
+        echo -e "\e[1;31m${@}\e[0m" >&2
+        exit 1
+    }
+
+    pushd ssh_server && just build && just run -d && popd
+    pushd ansible_client && just build && just run 2>&1 | tee /tmp/ansible_concerto.log && popd
+    grep "failed=0" /tmp/ansible_concerto.log || err "ERROR: failed=0 not found in logs, operation unsuccessful."
+
