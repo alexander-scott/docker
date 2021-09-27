@@ -24,17 +24,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
+      - name: Log into GitHub Container Registry
+        run: echo "${{ secrets.CR_PAT }}" | docker login https://docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+
+      - name: Install dependencies
+        run: |
+          wget https://github.com/casey/just/releases/download/0.10.1/just-0.10.1-x86_64-unknown-linux-musl.tar.gz
+          tar -xvf just-0.10.1-x86_64-unknown-linux-musl.tar.gz
+          ./just --version
+          mkdir -p /home/runner/.local/bin/
+          mv just /home/runner/.local/bin/
+
       - name: Run tests
         run: |
 
           FOLDERS=$(ls -d */)
           for FOLDER in $FOLDERS; do
             pushd $FOLDER
-              if [ -f docker-compose.test.yml ]; then
-                docker-compose --file docker-compose.test.yml build
-              elif [ -f Dockerfile ]; then
-                echo "Skipping tests for $FOLDER/Dockerfile."
-              fi
+              [ -f docker-compose.test.yml ] && docker-compose --file docker-compose.test.yml build
+              [ -f Justfile ] && just test
             popd
           done
 
@@ -53,6 +62,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Log into GitHub Container Registry
+        run: echo "${{ secrets.CR_PAT }}" | docker login https://docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+
       # 20201116 : currently no inheritance to put these steps in a base job
       - name: Install require packages for generation
         run: |
@@ -69,9 +81,6 @@ jobs:
       - uses: "actions/setup-python@v2"
         with:
           python-version: "${{ matrix.python-version }}"
-
-      - name: Log into GitHub Container Registry
-        run: echo "${{ secrets.CR_PAT }}" | docker login https://docker.pkg.github.com -u ${{ github.actor }} --password-stdin
 
       - name: Build and Push image to GitHub Container Registry
         env:
@@ -94,6 +103,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Log into GitHub Container Registry
+        run: echo "${{ secrets.CR_PAT }}" | docker login https://docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+
       # 20201116 : currently no inheritance to put these steps in a base job
       - name: Install require packages for generation
         run: |
@@ -111,9 +123,6 @@ jobs:
         uses: docker/setup-qemu-action@v1
         with:
           platforms: arm64
-
-      - name: Log into GitHub Container Registry
-        run: echo "${{ secrets.CR_PAT }}" | docker login https://docker.pkg.github.com -u ${{ github.actor }} --password-stdin
 
       - name: Build and Push image to GitHub Container Registry
         env:
@@ -136,6 +145,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Log into GitHub Container Registry
+        run: echo "${{ secrets.CR_PAT }}" | docker login https://docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+
       # 20201116 : currently no inheritance to put these steps in a base job
       - name: Install require packages for generation
         run: |
@@ -153,9 +165,6 @@ jobs:
         uses: docker/setup-qemu-action@v1
         with:
           platforms: linux/arm/v7
-
-      - name: Log into GitHub Container Registry
-        run: echo "${{ secrets.CR_PAT }}" | docker login https://docker.pkg.github.com -u ${{ github.actor }} --password-stdin
 
       - name: Build and Push image to GitHub Container Registry
         env:
