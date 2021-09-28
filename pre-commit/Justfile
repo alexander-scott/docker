@@ -40,8 +40,7 @@ test: build_docker
         echo -e "\e[1;31m${@}\e[0m" >&2
         exit 1
     }
-    git config --global user.email "foo@bar.bla"
-    git config --global user.name "Foo Bar"
+    [ ! -f ~/.gitconfig ] && git config --global user.email "foo@bar.bla" && git config --global user.name "Foo Bar"
     TEMP_FOLDER=$(mktemp -d)
     cp Justfile .pre-commit-config.yaml $TEMP_FOLDER
     pushd $TEMP_FOLDER
