@@ -13,6 +13,7 @@ RUN apt-get install -y \
     libXrandr2 \
     libXrender1 \
     libz1 \
+    tmate \
     wget \
     xvfb \
     xdotool \
