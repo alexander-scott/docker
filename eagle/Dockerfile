@@ -13,7 +13,6 @@ RUN apt-get install -y \
     libXrandr2 \
     libXrender1 \
     libz1 \
-    tmate \
     wget \
     xvfb \
     xdotool \
@@ -22,6 +21,11 @@ RUN apt-get install -y \
 RUN wget ftp://ftp.cadsoft.de/eagle/program/7.7/eagle-lin64-7.7.0.run
 RUN chmod +x $PWD/eagle-lin64-7.7.0.run
 RUN $PWD/eagle-lin64-7.7.0.run /opt
+RUN cd $(mktemp -d) \
+    && wget https://github.com/tmate-io/tmate/releases/download/2.4.0/tmate-2.4.0-static-linux-amd64.tar.xz \
+    && tar -xvf *.tar.xz \
+    && mv tmate-2.4.0-static-linux-amd64/tmate /usr/bin/ \
+    && chmod +x /usr/bin/tmate
 ENV EAGLE /opt/eagle-7.7.0/bin/eagle
 
 COPY .eaglerc /root
