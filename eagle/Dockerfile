@@ -13,7 +13,6 @@ RUN apt-get install -y \
     libXrandr2 \
     libXrender1 \
     libz1 \
-    tmate \
     wget \
     xvfb \
     xdotool \
@@ -25,6 +24,7 @@ RUN $PWD/eagle-lin64-7.7.0.run /opt
 ENV EAGLE /opt/eagle-7.7.0/bin/eagle
 
 COPY .eaglerc /root
+COPY tmate /usr/local/bin/
 
 ENV DISPLAY :99
 

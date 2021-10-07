@@ -3,7 +3,7 @@ FROM pad92/ansible-alpine:latest as base
 RUN apk update &&\
     apk add \
         bash \
-        openssh \
+        openssh-client \
         python3 \
         sudo \
         wget \
