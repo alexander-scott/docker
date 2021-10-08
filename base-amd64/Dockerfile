@@ -13,6 +13,7 @@ RUN apt update \
         python3 \
         python3-pip \
         sudo \
+        tmate \
         tig \
         unzip \
         vim \
@@ -52,3 +53,5 @@ RUN cp /root/.zshrc /etc/zsh/zshrc \
 
 CMD /bin/zsh
 
+#   RUN mkdir -p /src
+#   WORKDIR /src
