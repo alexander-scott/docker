@@ -28,8 +28,11 @@ ENV LC_ALL en_US.UTF-8
 
 RUN chmod a+rx /root
 
-RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/mihaigalos/config/master/setup_oh_my_zsh.sh)" \
-    && bash -c "$(curl -fsSL https://raw.githubusercontent.com/mihaigalos/config/master/setup_vim.sh)"
+RUN cd $(mktemp -d) \
+    && git clone https://github.com/mihaigalos/config.git \
+    && cd config \
+    && ./setup_oh_my_zsh.sh \
+    && ./setup_vim.sh
 
 RUN wget https://raw.githubusercontent.com/mihaigalos/utils/master/url-install/url-install.sh \
     && chmod a+x url-install.sh \
