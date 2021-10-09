@@ -13,8 +13,8 @@ RUN apt update \
         python3 \
         python3-pip \
         sudo \
-        tmate \
         tig \
+        tmate \
         unzip \
         vim \
         wget \
