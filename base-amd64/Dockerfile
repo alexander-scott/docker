@@ -19,8 +19,13 @@ RUN apt update \
         wget \
         zsh
 
-RUN locale-gen en_US.UTF-8 \
-    && chmod a+rx /root
+RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
+    locale-gen
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
+RUN chmod a+rx /root
 
 RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/mihaigalos/config/master/setmeup/setup_oh_my_zsh.sh)" \
     && bash -c "$(curl -fsSL https://raw.githubusercontent.com/mihaigalos/config/master/setmeup/setup_vim.sh)"
@@ -49,6 +54,9 @@ COPY .gitconfig /root
 
 RUN cp /root/.zshrc /etc/zsh/zshrc \
     && echo '[ ! -f "/home/$USER/.gitconfig" ] && ln -s /root/.gitconfig /home/$USER/' >> /etc/zsh/zshrc
+
+RUN mkdir -p /src
+WORKDIR /src
 
 CMD /bin/zsh
 
