@@ -1,4 +1,4 @@
-FROM docker.pkg.github.com/mihaigalos/docker/base-amd64
+FROM docker.pkg.github.com/mihaigalos/docker/base-x64
 
 RUN apt-get update
 
