@@ -1,4 +1,4 @@
-FROM docker.pkg.github.com/mihaigalos/docker/base-amd64
+FROM docker.pkg.github.com/mihaigalos/docker/base-x64
 
 RUN curl -fsSL https://bazel.build/bazel-release.pub.gpg | gpg --dearmor > bazel.gpg
 RUN mv bazel.gpg /etc/apt/trusted.gpg.d/
