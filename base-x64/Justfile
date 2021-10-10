@@ -1,0 +1,19 @@
+set shell := ["/bin/bash", "-c"]
+
+default:
+  @just --list
+
+tool := "base-x64"
+docker_container_registry := "ghcr.io"
+docker_user_repo := "mihaigalos"
+docker_image_version := "0.0.1"
+docker_image := docker_container_registry + "/" + docker_user_repo + "/" + tool+ ":" + docker_image_version
+
+build +args="":
+    docker build --build-arg var_name=COLUMNS=${COLUMNS} -t {{docker_image}} {{args}} .
+
+run:
+    docker run --rm -it -v $PWD:/src -v /etc/passwd:/etc/passwd:ro -v /etc/shadow:/etc/shadow:ro -v /etc/group:/etc/group:ro -v $(mktemp -d):/home/$USER --user $UID:$UID --env "USER=$USER" --hostname $(hostname) -v ~/.zshrc:/home/$USER/.zshrc:ro -v ~/.oh-my-zsh:/home/$USER/.oh-my-zsh:ro {{docker_image}}
+
+run_root:
+    docker run --rm -it --hostname $(hostname) -v ~/.zshrc:/home/$USER/.zshrc:ro -v ~/.oh-my-zsh:/home/$USER/.oh-my-zsh:ro {{docker_image}}
