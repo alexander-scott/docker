@@ -17,3 +17,6 @@ run:
 
 run_root:
     docker run --rm -it --hostname $(hostname) -v ~/.zshrc:/home/$USER/.zshrc:ro -v ~/.oh-my-zsh:/home/$USER/.oh-my-zsh:ro {{docker_image}}
+
+test:
+  true
