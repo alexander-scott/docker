@@ -13,10 +13,29 @@ build +args="":
     docker build --build-arg var_name=COLUMNS=${COLUMNS} -t {{docker_image}} {{args}} .
 
 run:
-    docker run --rm -it -v $PWD:/src -v /etc/passwd:/etc/passwd:ro -v /etc/shadow:/etc/shadow:ro -v /etc/group:/etc/group:ro -v $(mktemp -d):/home/$USER --user $UID:$UID --env "USER=$USER" --hostname $(hostname) -v ~/.zshrc:/home/$USER/.zshrc:ro -v ~/.oh-my-zsh:/home/$USER/.oh-my-zsh:ro {{docker_image}}
+    docker run \
+      --env "USER=$USER" \
+      --hostname $(hostname) \
+      --rm \
+      --user $UID:$UID \
+      -it \
+      -v $(mktemp -d):/home/$USER \
+      -v $PWD:/src \
+      -v /etc/group:/etc/group:ro \
+      -v /etc/passwd:/etc/passwd:ro \
+      -v /etc/shadow:/etc/shadow:ro \
+      -v ~/.oh-my-zsh:/home/$USER/.oh-my-zsh:ro \
+      -v ~/.zshrc:/home/$USER/.zshrc:ro \
+      {{docker_image}}
 
 run_root:
-    docker run --rm -it --hostname $(hostname) -v ~/.zshrc:/home/$USER/.zshrc:ro -v ~/.oh-my-zsh:/home/$USER/.oh-my-zsh:ro {{docker_image}}
+    docker run \
+    --hostname $(hostname) \
+    --rm \
+    -it \
+    -v ~/.oh-my-zsh:/home/$USER/.oh-my-zsh:ro \
+    -v ~/.zshrc:/home/$USER/.zshrc:ro \
+    {{docker_image}}
 
 test:
   true
