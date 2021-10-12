@@ -3,12 +3,13 @@ FROM debian:bookworm-slim
 ENV TZ=Europe/Berlin
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN apt update \
-    && DEBIAN_FRONTEND=noninteractive apt install --yes --fix-broken \
+RUN apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install --yes --fix-broken \
         curl \
         git \
         gnupg \
         htop \
+        iftop \
         locales \
         python3 \
         python3-pip \
@@ -51,6 +52,7 @@ RUN url-install \
     https://github.com/XAMPPRocky/tokei/releases/download/v12.0.4/tokei-x86_64-unknown-linux-gnu.tar.gz \
     https://github.com/beefsack/webify/releases/download/v1.5.0/webify-v1.5.0-linux-amd64.tar.gz \
     https://github.com/dandavison/delta/releases/download/0.4.4/delta-0.4.4-x86_64-unknown-linux-gnu.tar.gz \
+    https://github.com/imsnif/bandwhich/releases/download/0.20.0/bandwhich-v0.20.0-x86_64-unknown-linux-musl.tar.gz \
     https://github.com/junegunn/fzf/releases/download/0.27.2/fzf-0.27.2-linux_amd64.tar.gz \
     https://github.com/ogham/exa/releases/download/v0.9.0/exa-linux-x86_64-0.9.0.zip \
     https://github.com/sharkdp/bat/releases/download/v0.16.0/bat-v0.16.0-x86_64-unknown-linux-gnu.tar.gz
