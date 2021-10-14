@@ -35,17 +35,17 @@ RUN cd $(mktemp -d) \
     && ./setup_oh_my_zsh.sh \
     && ./setup_vim.sh
 
-RUN wget https://raw.githubusercontent.com/mihaigalos/utils/master/url-install/url-install.sh \
-    && chmod a+x url-install.sh \
-    && mv url-install.sh /usr/bin/url-install \
-    && mkdir -p ~/.local/bin \
-    && PATH=~/.local/bin:$PATH
-
 RUN cd $(mktemp -d) \
     && wget https://github.com/tmate-io/tmate/releases/download/2.4.0/tmate-2.4.0-static-linux-amd64.tar.xz \
     && tar -xvf *.tar.xz \
     && mv tmate-2.4.0-static-linux-amd64/tmate /usr/bin/ \
     && chmod +x /usr/bin/tmate
+
+RUN wget https://raw.githubusercontent.com/mihaigalos/utils/master/url-install/url-install.sh \
+    && chmod a+x url-install.sh \
+    && mv url-install.sh /usr/bin/url-install \
+    && mkdir -p ~/.local/bin \
+    && PATH=~/.local/bin:$PATH
 
 RUN url-install \
         https://github.com/Byron/dua-cli/releases/download/v2.10.2/dua-v2.10.2-x86_64-unknown-linux-musl.tar.gz 16c241b0446b2b8ae8851f3facacd7604fe4193b2c0a545ae07652300f63a1e8  \
