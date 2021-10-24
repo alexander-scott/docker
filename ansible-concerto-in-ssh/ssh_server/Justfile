@@ -1,5 +1,5 @@
 default:
-    @just --list
+    @just --list --unsorted
 
 tool := "my-openssh-server"
 docker_image_version := "0.0.1"

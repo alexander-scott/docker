@@ -1,7 +1,7 @@
 set shell := ["/bin/bash", "-c"]
 
 default:
-  @just --list
+  @just --list --unsorted
 
 tool := "base-x64"
 docker_container_registry := "ghcr.io"

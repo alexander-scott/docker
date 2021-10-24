@@ -1,5 +1,5 @@
 default:
-  @just --list
+  @just --list --unsorted
  
 base_image := "aarch64/alpine:3.5"
 docker_container_registry := "725726492038.dkr.ecr.eu-central-1.amazonaws.com"
