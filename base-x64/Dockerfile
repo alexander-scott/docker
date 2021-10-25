@@ -56,7 +56,7 @@ RUN url-install \
         https://github.com/beefsack/webify/releases/download/v1.5.0/webify-v1.5.0-linux-amd64.tar.gz acbbe41d4f90044d57e4ebea746344b8632cb54a195a958c2e26cb58742d5403  \
         https://github.com/dandavison/delta/releases/download/0.4.4/delta-0.4.4-x86_64-unknown-linux-gnu.tar.gz 495a64a2fb6c46a19f10606785fea3267d392cebf4987841856b111f195a6f01  \
         https://github.com/imsnif/bandwhich/releases/download/0.20.0/bandwhich-v0.20.0-x86_64-unknown-linux-musl.tar.gz 73416b50baa34d9c3d56958655a789b4697f4f09e6f7ae0e079eb742cce7837b  \
-        https://github.com/junegunn/fzf/releases/download/0.27.2/fzf-0.27.2-linux_amd64.tar.gz bfdfbade5e62ef47e2b0707293120ed7829583fdcafe763a5dc904e3e1642271  \
+        https://github.com/casey/just/releases/download/0.10.2/just-0.10.2-x86_64-unknown-linux-musl.tar.gz 280a6edf58076e90d2002b44d38f93dcd708209c446dbcc38344ed6d21a8aaf7 \
         https://github.com/ogham/exa/releases/download/v0.9.0/exa-linux-x86_64-0.9.0.zip 53d8746b1ca2d945c5b75767edc83addfd1fe3c4a2b0b766c07172473330a50b  \
         https://github.com/sharkdp/bat/releases/download/v0.16.0/bat-v0.16.0-x86_64-unknown-linux-gnu.tar.gz a9e2d7f5ad5962bca8bd742536c80f9d4d5f42cb1b160bf19671907c3507ab1e \
         https://github.com/sharkdp/hexyl/releases/download/v0.9.0/hexyl-v0.9.0-x86_64-unknown-linux-gnu.tar.gz 8d5b505b3ae1f65a236e907e39ede6b4287661b0cf39443a51304272a58e8139 \
