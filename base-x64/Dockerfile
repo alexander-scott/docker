@@ -58,6 +58,7 @@ RUN url-install \
         https://github.com/dandavison/delta/releases/download/0.4.4/delta-0.4.4-x86_64-unknown-linux-gnu.tar.gz 495a64a2fb6c46a19f10606785fea3267d392cebf4987841856b111f195a6f01  \
         https://github.com/imsnif/bandwhich/releases/download/0.20.0/bandwhich-v0.20.0-x86_64-unknown-linux-musl.tar.gz 73416b50baa34d9c3d56958655a789b4697f4f09e6f7ae0e079eb742cce7837b  \
         https://github.com/ogham/exa/releases/download/v0.9.0/exa-linux-x86_64-0.9.0.zip 53d8746b1ca2d945c5b75767edc83addfd1fe3c4a2b0b766c07172473330a50b  \
+        https://github.com/rhysd/hgrep/releases/download/v0.1.7/hgrep-v0.1.7-x86_64-unknown-linux-gnu.zip aeb6f20a7b621454ff137108b935559fc4974e7167279531aac83b8fe6decd3f  \
         https://github.com/sharkdp/bat/releases/download/v0.16.0/bat-v0.16.0-x86_64-unknown-linux-gnu.tar.gz a9e2d7f5ad5962bca8bd742536c80f9d4d5f42cb1b160bf19671907c3507ab1e \
         https://github.com/sharkdp/hexyl/releases/download/v0.9.0/hexyl-v0.9.0-x86_64-unknown-linux-gnu.tar.gz 8d5b505b3ae1f65a236e907e39ede6b4287661b0cf39443a51304272a58e8139 \
         https://github.com/sharkdp/hyperfine/releases/download/v1.11.0/hyperfine-v1.11.0-x86_64-unknown-linux-gnu.tar.gz e3ad877029778b1f82651fa2e2285a6a32e446f2ca2cf11e8b6979f83843cb9d
