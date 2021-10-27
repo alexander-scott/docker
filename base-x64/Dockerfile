@@ -15,6 +15,7 @@ RUN apt-get update \
         python3-pip \
         sudo \
         tig \
+        tree \
         tmate \
         unzip \
         vim \
@@ -69,7 +70,8 @@ RUN cp /root/.zshrc /etc/zsh/zshrc \
     && echo '[ ! -d "/home/$USER/.vim" ] && ln -s /root/.vim /home/$USER' >> /etc/zsh/zshrc \
     && echo '[ ! -f "/home/$USER/.gitconfig" ] && ln -s /root/.gitconfig /home/$USER/' >> /etc/zsh/zshrc \
     && echo '[ ! -f "/home/$USER/.vimrc" ] && ln -s /root/.vimrc /home/$USER' >> /etc/zsh/zshrc \
-    && echo 'export PATH=/root/.local/bin:$PATH' >> /etc/zsh/zshrc
+    && echo 'export PATH=/root/.local/bin:$PATH' >> /etc/zsh/zshrc \
+    && echo 'export DISABLE_AUTO_UPDATE=true' >> /etc/zsh/zshrc
 
 RUN mkdir -p /src
 WORKDIR /src
