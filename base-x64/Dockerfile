@@ -65,6 +65,8 @@ RUN url-install \
         https://github.com/sharkdp/hyperfine/releases/download/v1.11.0/hyperfine-v1.11.0-x86_64-unknown-linux-gnu.tar.gz e3ad877029778b1f82651fa2e2285a6a32e446f2ca2cf11e8b6979f83843cb9d
 
 COPY .gitconfig /root
+RUN mkdir -p /sources_base_x64
+COPY Dockerfile Justfile /sources_base_x64/
 
 RUN cp /root/.zshrc /etc/zsh/zshrc \
     && echo '[ ! -d "/home/$USER/.vim" ] && ln -s /root/.vim /home/$USER' >> /etc/zsh/zshrc \
