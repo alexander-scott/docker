@@ -10,7 +10,7 @@ docker_image_version := "0.0.1"
 docker_image := docker_container_registry + "/" + docker_user_repo + "/" + tool+ ":" + docker_image_version
 
 build +args="":
-    docker build --build-arg var_name=COLUMNS=${COLUMNS} -t {{docker_image}} {{args}} .
+    docker build --build-arg=GIT_COMMIT=$(git rev-parse HEAD) -t {{docker_image}} {{args}} .
 
 run user_home="my_home":
     #!/bin/bash

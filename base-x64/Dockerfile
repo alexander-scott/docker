@@ -1,5 +1,7 @@
 FROM debian:bookworm-slim
 
+ARG GIT_COMMIT
+
 ENV TZ=Europe/Berlin
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
@@ -67,6 +69,7 @@ RUN url-install \
 COPY .gitconfig /root
 RUN mkdir -p /sources_base_x64
 COPY Dockerfile Justfile /sources_base_x64/
+RUN echo ${GIT_COMMIT} > /sources_base_x64/git_commit.log
 
 RUN cp /root/.zshrc /etc/zsh/zshrc \
     && echo '[ ! -d "/home/$USER/.vim" ] && ln -s /root/.vim /home/$USER' >> /etc/zsh/zshrc \
