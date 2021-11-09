@@ -82,4 +82,4 @@ RUN cp /root/.zshrc /etc/zsh/zshrc \
 RUN mkdir -p /src
 WORKDIR /src
 
-CMD /bin/zsh
+CMD /bin/zsh -c "source /etc/zsh/zshrc && zsh"
