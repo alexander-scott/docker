@@ -87,8 +87,9 @@ RUN cp /root/.zshrc /etc/zsh/zshrc \
     && echo '[ ! -f "/home/$USER/.gitconfig" ] && ln -s /root/.gitconfig /home/$USER/' >> /etc/zsh/zshrc \
     && echo '[ ! -f "/home/$USER/.vimrc" ] && ln -s /root/.vimrc /home/$USER' >> /etc/zsh/zshrc \
     && echo '[ ! -f "/home/$USER/.tmux.conf" ] && ln -s /root/.tmux.conf /home/$USER' >> /etc/zsh/zshrc \
+    && echo 'export DISABLE_AUTO_UPDATE=true' >> /etc/zsh/zshrc \
     && echo 'export PATH=/root/.local/bin:$PATH' >> /etc/zsh/zshrc \
-    && echo 'export DISABLE_AUTO_UPDATE=true' >> /etc/zsh/zshrc
+    && echo 'export TERM=xterm-256color' >> /root/.zshrc
 
 RUN rm -rf /tmp/tmp.
 
