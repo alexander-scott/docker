@@ -82,6 +82,8 @@ RUN cp /root/.zshrc /etc/zsh/zshrc \
     && echo 'export PATH=/root/.local/bin:$PATH' >> /etc/zsh/zshrc \
     && echo 'export DISABLE_AUTO_UPDATE=true' >> /etc/zsh/zshrc
 
+RUN rm -rf /tmp/tmp.
+
 RUN mkdir -p /src
 WORKDIR /src
 
