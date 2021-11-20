@@ -91,8 +91,8 @@ RUN cp /root/.zshrc /etc/zsh/zshrc \
     && echo '[ ! -f "/home/$USER/.vimrc" ] && ln -s /root/.vimrc /home/$USER' >> /etc/zsh/zshrc \
     && echo 'export DISABLE_AUTO_UPDATE=true' >> /etc/zsh/zshrc \
     && echo 'export PATH=/root/.local/bin:$PATH' >> /etc/zsh/zshrc \
-    && echo 'export PUBLIC_IP=$(dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed -e "s/\"//g")' >> /etc/zsh/zshrc \
-    && echo 'export TERM=xterm-256color' >> /etc/zsh/zshrc
+    && echo 'export PUBLIC_IP=$(dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed -e "s/\"//g")' >> /etc/zsh/zshrc
+
 RUN rm -rf /tmp/tmp.
 
 RUN mkdir -p /src
