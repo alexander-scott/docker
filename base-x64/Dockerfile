@@ -8,6 +8,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install --yes --fix-broken \
         curl \
+        dnsutils \
         git \
         gnupg \
         htop \
@@ -89,8 +90,9 @@ RUN cp /root/.zshrc /etc/zsh/zshrc \
     && echo '[ ! -f "/home/$USER/.tmux.conf" ] && ln -s /root/.tmux.conf /home/$USER' >> /etc/zsh/zshrc \
     && echo 'export DISABLE_AUTO_UPDATE=true' >> /etc/zsh/zshrc \
     && echo 'export PATH=/root/.local/bin:$PATH' >> /etc/zsh/zshrc \
-    && echo 'export TERM=xterm-256color' >> /root/.zshrc
-
+    && echo 'export PATH=/root/.local/bin:$PATH' >> /etc/zsh/zshrc \
+    && echo 'export PUBLIC_IP=$(dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed -e "s/\"//g")' >> /etc/zsh/zshrc \
+    && echo 'export TERM=xterm-256color' >> /etc/zsh/zshrc
 RUN rm -rf /tmp/tmp.
 
 RUN mkdir -p /src
