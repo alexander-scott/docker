@@ -6,7 +6,7 @@ default:
 tool := "base-x64"
 docker_container_registry := "ghcr.io"
 docker_user_repo := "mihaigalos"
-docker_image_version := "0.0.3"
+docker_image_version := "0.0.4"
 docker_image := docker_container_registry + "/" + docker_user_repo + "/" + tool+ ":" + docker_image_version
 
 build +args="":
