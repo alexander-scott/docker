@@ -85,7 +85,7 @@ RUN echo ${GIT_COMMIT} > /sources_base_x64/git_commit.log
 RUN cp /root/.zshrc /etc/zsh/zshrc \
     && echo '[ ! -d "/home/$USER/.tmux" ] && ln -s /root/.tmux /home/$USER' >> /etc/zsh/zshrc \
     && echo '[ ! -d "/home/$USER/.vim" ] && ln -s /root/.vim /home/$USER' >> /etc/zsh/zshrc \
-    && echo '[ ! -f "/home/$USER/.fzf.zsh ] && ln -s /root/.fzf.zsh /home/$USER' >> /etc/zsh/zshrc \
+    && echo '[ ! -f "/home/$USER/.fzf.zsh" ] && ln -s /root/.fzf.zsh /home/$USER' >> /etc/zsh/zshrc \
     && echo '[ ! -f "/home/$USER/.gitconfig" ] && ln -s /root/.gitconfig /home/$USER/' >> /etc/zsh/zshrc \
     && echo '[ ! -f "/home/$USER/.tmux.conf" ] && ln -s /root/.tmux.conf /home/$USER' >> /etc/zsh/zshrc \
     && echo '[ ! -f "/home/$USER/.vimrc" ] && ln -s /root/.vimrc /home/$USER' >> /etc/zsh/zshrc \
