@@ -1,8 +1,7 @@
 FROM docker.pkg.github.com/mihaigalos/docker/base-x64
 
-RUN apt-get update
-
-RUN apt install --assume-yes --fix-broken \
+RUN apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install --yes --fix-broken \
     avr-libc \
     bash \
     curl \
