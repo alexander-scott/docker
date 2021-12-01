@@ -2,16 +2,17 @@ FROM docker.pkg.github.com/mihaigalos/docker/base-x64
 
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install --yes --fix-broken \
-    avr-libc \
-    bash \
-    curl \
-    g++ \
-    git \
-    gcc-avr \
-    sudo \
-    vim \
-    wget \
-    zsh 
+    -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" \
+        avr-libc \
+        bash \
+        curl \
+        g++ \
+        gcc-avr \
+        git \
+        sudo \
+        vim \
+        wget \
+        zsh 
 
 COPY barebones /tmp/demo/barebones
 RUN cd /tmp/demo/barebones && avr-gcc -D __AVR__  -fstack-usage -std=c++14 -mmcu=atmega328p -Os demo_application.cpp -o main.elf && avr-nm --size-sort -C -r --radix=d main.elf
