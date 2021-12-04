@@ -93,6 +93,8 @@ RUN cp /root/.zshrc /etc/zsh/zshrc \
     && echo 'export PATH=/root/.local/bin:$PATH' >> /etc/zsh/zshrc \
     && echo 'export PUBLIC_IP=$(dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed -e "s/\"//g")' >> /etc/zsh/zshrc
 
+RUN echo '[ ! -f "/home/$USER/.zshrc" ] && ln -s /etc/zsh/zshrc /home/$USER/.zshrc' >> /etc/zsh/zshrc
+
 RUN rm -rf /tmp/tmp.
 
 RUN mkdir -p /src
