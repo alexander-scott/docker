@@ -73,7 +73,7 @@ RUN url-install \
 RUN url-install --install_all \
         https://github.com/mihaigalos/tmux-thumbs/releases/download/0.6.0/tmux-thumbs-v0.6.0-x86_64-unknown-linux-gnu.tar.gz 3fcd8c0fe22c812c0a7c36ce04cd02b1f40672c4d371c6878d83b176a334676e
 
-RUN git clone --depth 1 -b 0.6.0 https://github.com/fcsonline/tmux-thumbs.git ~/.tmux/plugins/tmux-thumbs 2>/dev/null \
+RUN git clone --depth 1 -b 0.6.0 https://github.com/mihaigalos/tmux-thumbs.git ~/.tmux/plugins/tmux-thumbs 2>/dev/null \
     && mkdir -p ~/.tmux/plugins/tmux-thumbs/target/release \
     && ln -s ~/.local/bin/thumbs ~/.tmux/plugins/tmux-thumbs/target/release \
     && ln -s ~/.local/bin/tmux-thumbs ~/.tmux/plugins/tmux-thumbs/target/release
