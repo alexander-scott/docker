@@ -35,7 +35,7 @@ ENV LC_ALL en_US.UTF-8
 RUN chmod a+rx /root
 
 RUN cd $(mktemp -d) \
-    && git clone https://github.com/mihaigalos/config.git \
+    && git clone --depth 1 https://github.com/mihaigalos/config.git \
     && cd config \
     && ./setup_oh_my_zsh.sh \
     && ./setup_vim.sh
@@ -82,7 +82,7 @@ RUN git clone --depth 1 -b 0.6.0 https://github.com/mihaigalos/tmux-thumbs.git ~
 
 RUN git clone --depth 1 https://github.com/mihaigalos/tmux-fzf-url.git ~/.tmux/plugins/tmux-fzf-url 2>/dev/null
 
-RUN git clone https://github.com/mihaigalos/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
+RUN git clone --depth 1 https://github.com/mihaigalos/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
 
 RUN mkdir -p /sources_base_x64
 COPY Dockerfile Justfile /sources_base_x64/
