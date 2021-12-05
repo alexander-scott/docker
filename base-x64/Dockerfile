@@ -46,7 +46,8 @@ RUN cd $(mktemp -d) \
     && mv tmate-2.4.0-static-linux-amd64/tmate /usr/bin/ \
     && chmod +x /usr/bin/tmate
 
-RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf \
+RUN cd $(mktemp -d) \
+    && git clone --depth 1 https://github.com/mihaigalos/fzf.git ~/.fzf \
     && ~/.fzf/install
 
 RUN wget https://raw.githubusercontent.com/mihaigalos/utils/master/url-install/url-install.sh \
@@ -78,6 +79,8 @@ RUN git clone --depth 1 -b 0.6.0 https://github.com/mihaigalos/tmux-thumbs.git ~
     && mkdir -p ~/.tmux/plugins/tmux-thumbs/target/release \
     && ln -s ~/.local/bin/thumbs ~/.tmux/plugins/tmux-thumbs/target/release \
     && ln -s ~/.local/bin/tmux-thumbs ~/.tmux/plugins/tmux-thumbs/target/release
+
+RUN git clone --depth 1 https://github.com/mihaigalos/tmux-fzf-url.git ~/.tmux/plugins/tmux-fzf-url 2>/dev/null
 
 RUN git clone https://github.com/mihaigalos/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
 
