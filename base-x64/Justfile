@@ -27,7 +27,7 @@ run user_home="my_home":
       -v /etc/group:/etc/group:ro \
       -v /etc/passwd:/etc/passwd:ro \
       -v /etc/shadow:/etc/shadow:ro \
-      {{docker_image}}
+      {{docker_image}} || true
 
 
 run_root:
@@ -35,9 +35,7 @@ run_root:
     --hostname $(hostname) \
     --rm \
     -it \
-    -v ~/.oh-my-zsh:/home/$USER/.oh-my-zsh:ro \
-    -v ~/.zshrc:/home/$USER/.zshrc:ro \
-    {{docker_image}}
+    {{docker_image}} || true
 
 test:
   true
