@@ -79,22 +79,26 @@ RUN git clone --depth 1 -b 0.6.0 https://github.com/mihaigalos/tmux-thumbs.git ~
     && ln -s ~/.local/bin/thumbs ~/.tmux/plugins/tmux-thumbs/target/release \
     && ln -s ~/.local/bin/tmux-thumbs ~/.tmux/plugins/tmux-thumbs/target/release
 
+RUN git clone https://github.com/mihaigalos/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
+
 RUN mkdir -p /sources_base_x64
 COPY Dockerfile Justfile /sources_base_x64/
 RUN echo ${GIT_COMMIT} > /sources_base_x64/git_commit.log
 
 RUN cp /root/.zshrc /etc/zsh/zshrc \
-    && echo '[ ! -d "/home/$USER/.tmux" ] && ln -s /root/.tmux /home/$USER' >> /etc/zsh/zshrc \
-    && echo '[ ! -d "/home/$USER/.vim" ] && ln -s /root/.vim /home/$USER' >> /etc/zsh/zshrc \
-    && echo '[ ! -f "/home/$USER/.fzf.zsh" ] && ln -s /root/.fzf.zsh /home/$USER' >> /etc/zsh/zshrc \
-    && echo '[ ! -f "/home/$USER/.gitconfig" ] && ln -s /root/.gitconfig /home/$USER/' >> /etc/zsh/zshrc \
-    && echo '[ ! -f "/home/$USER/.tmux.conf" ] && ln -s /root/.tmux.conf /home/$USER' >> /etc/zsh/zshrc \
-    && echo '[ ! -f "/home/$USER/.vimrc" ] && ln -s /root/.vimrc /home/$USER' >> /etc/zsh/zshrc \
+    && rm /root/.zshrc \
+    && echo '[ ! -d ~/.tmux ] && ln -s /root/.tmux ~' >> /etc/zsh/zshrc \
+    && echo '[ ! -d ~/.vim ] && ln -s /root/.vim ~' >> /etc/zsh/zshrc \
+    && echo '[ ! -f ~/.fzf.zsh ] && ln -s /root/.fzf.zsh ~' >> /etc/zsh/zshrc \
+    && echo '[ ! -f ~/.gitconfig ] && ln -s /root/.gitconfig ~/' >> /etc/zsh/zshrc \
+    && echo '[ ! -f ~/.tmux.conf ] && ln -s /root/.tmux.conf ~' >> /etc/zsh/zshrc \
+    && echo '[ ! -f ~/.vimrc ] && ln -s /root/.vimrc ~' >> /etc/zsh/zshrc \
     && echo 'export DISABLE_AUTO_UPDATE=true' >> /etc/zsh/zshrc \
     && echo 'export PATH=/root/.local/bin:$PATH' >> /etc/zsh/zshrc \
-    && echo 'export PUBLIC_IP=$(dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed -e "s/\"//g")' >> /etc/zsh/zshrc
+    && echo 'export PUBLIC_IP=$(dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed -e "s/\"//g")' >> /etc/zsh/zshrc \
+    && echo 'source /root/.oh-my-zsh/custom/plugins/fzf-tab/fzf-tab.plugin.zsh' >> /etc/zsh/zshrc
 
-RUN echo '[ ! -f "/home/$USER/.zshrc" ] && ln -s /etc/zsh/zshrc /home/$USER/.zshrc' >> /etc/zsh/zshrc
+RUN echo '[ ! -f ~/.zshrc ] && ln -s /etc/zsh/zshrc ~/.zshrc' >> /etc/zsh/zshrc
 
 RUN rm -rf /tmp/tmp.
 
