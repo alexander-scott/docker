@@ -100,7 +100,7 @@ RUN cp /root/.zshrc /etc/zsh/zshrc \
 
 RUN echo '[ ! -f ~/.zshrc ] && ln -s /etc/zsh/zshrc ~/.zshrc' >> /etc/zsh/zshrc
 
-RUN rm -rf /tmp/tmp.
+RUN rm -rf /tmp/tmp.*
 
 RUN mkdir -p /src
 WORKDIR /src
