@@ -1,4 +1,4 @@
-FROM ghcr.io/mihaigalos/base-x64:0.0.4
+FROM docker.pkg.github.com/mihaigalos/docker/base-x64
 
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install --yes --fix-broken \
