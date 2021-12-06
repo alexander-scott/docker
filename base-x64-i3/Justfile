@@ -1,0 +1,44 @@
+set shell := ["/bin/bash", "-c"]
+
+default:
+    @just --list --unsorted
+
+tool := "base-x64-fedora"
+docker_container_registry := "ghcr.io"
+docker_user_repo := "mihaigalos"
+docker_image_version := "0.0.1"
+docker_image := docker_container_registry + "/" + docker_user_repo + "/" + tool+ ":" + docker_image_version
+
+build +args="":
+    docker build --build-arg=GIT_COMMIT=$(git rev-parse HEAD) -t {{docker_image}} {{args}} .
+
+run user_home="my_home":
+    #!/bin/bash
+    set -x
+    mkdir -p {{user_home}}
+    docker run \
+      --env "USER=$USER" \
+      --hostname $(hostname) \
+      --rm \
+      --user $UID:$UID \
+      -it \
+      -v $(realpath {{user_home}}):/home/$USER \
+      -v $PWD:/src \
+      -v /etc/group:/etc/group:ro \
+      -v /etc/passwd:/etc/passwd:ro \
+      -v /etc/shadow:/etc/shadow:ro \
+      {{docker_image}} || true
+
+
+run_root:
+    docker run \
+    --hostname $(hostname) \
+    --rm \
+    -it \
+    --net=host \
+    -p 6080:6080 \
+    -e DISPLAY=:42 \
+    {{docker_image}} || true
+
+test:
+    true
