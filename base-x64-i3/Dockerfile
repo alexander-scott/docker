@@ -29,6 +29,14 @@ RUN git clone --depth 1 https://github.com/kanaka/noVNC \
     && cd noVNC \
 	&& ln -s vnc.html index.html
 
+RUN mkdir -p ~/.config/i3 \
+    && curl https://raw.githubusercontent.com/mihaigalos/config/master/i3_config -o ~/.config/i3/config \
+    && sed -i \
+        -e "s/Mod4/Mod1/" \
+        -e "s/.*i3status-provider.*//" \
+        -e "s/\(.*\)#status_command\(.*\)/\1status_command\2/" \
+        ~/.config/i3/config
+
 COPY supervisord.conf /etc/
 
 EXPOSE 6080
