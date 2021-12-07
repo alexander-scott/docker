@@ -20,9 +20,7 @@ RUN apt-get update \
 RUN apt-get remove -y \
         terminator
 
-RUN echo 'xterm*background: black' >> ~/.Xresources \
-    && echo 'xterm*foreground: lightgray' >> ~/.Xresources \
-    && echo 'xterm*faceName: monospace:pixelsize=12' >> ~/.Xresources
+COPY .Xresources x_config.sh /root/
 
 WORKDIR /usr/share/
 RUN git clone --depth 1 https://github.com/kanaka/noVNC \
