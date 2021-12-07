@@ -19,10 +19,10 @@ RUN apt-get update \
 
 RUN apt-get remove -y \
         terminator
+
 RUN echo 'xterm*background: black' >> ~/.Xresources \
     && echo 'xterm*foreground: lightgray' >> ~/.Xresources \
-    && echo 'xterm*faceName: monospace:pixelsize=12' >> ~/.Xresources \
-    && echo 'xrdb ~/.Xresources' >> /etc/zsh/zshrc
+    && echo 'xterm*faceName: monospace:pixelsize=12' >> ~/.Xresources
 
 WORKDIR /usr/share/
 RUN git clone --depth 1 https://github.com/kanaka/noVNC \
@@ -35,10 +35,12 @@ RUN mkdir -p ~/.config/i3 \
         -e "s/Mod4/Mod1/" \
         -e "s/.*i3status-provider.*//" \
         -e "s/\(.*\)#status_command\(.*\)/\1status_command\2/" \
-        ~/.config/i3/config
+        ~/.config/i3/config \
+    && curl https://raw.githubusercontent.com/mihaigalos/config/master/i3status.conf -o /etc/i3status.conf
 
 COPY supervisord.conf /etc/
 
 EXPOSE 6080
 
+WORKDIR /src
 CMD ["/usr/bin/supervisord"]
