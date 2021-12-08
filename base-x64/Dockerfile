@@ -69,6 +69,7 @@ RUN url-install \
         https://github.com/rhysd/hgrep/releases/download/v0.1.7/hgrep-v0.1.7-x86_64-unknown-linux-gnu.zip aeb6f20a7b621454ff137108b935559fc4974e7167279531aac83b8fe6decd3f  \
         https://github.com/sachaos/viddy/releases/download/v0.3.2/viddy_0.3.2_Linux_x86_64.tar.gz a11e950b91def821b3f62cdc55036c3e6eaf5bdf0b01cf8ecc6a1c1195cd331c \
         https://github.com/sharkdp/bat/releases/download/v0.16.0/bat-v0.16.0-x86_64-unknown-linux-gnu.tar.gz a9e2d7f5ad5962bca8bd742536c80f9d4d5f42cb1b160bf19671907c3507ab1e \
+        https://github.com/sharkdp/fd/releases/download/v8.3.0/fd-v8.3.0-x86_64-unknown-linux-gnu.tar.gz 8f318b94330c9afb42177e84f6c1f524bbf09743c4fddec8cff7fcb10df7b39f  \
         https://github.com/sharkdp/hexyl/releases/download/v0.9.0/hexyl-v0.9.0-x86_64-unknown-linux-gnu.tar.gz 8d5b505b3ae1f65a236e907e39ede6b4287661b0cf39443a51304272a58e8139 \
         https://github.com/sharkdp/hyperfine/releases/download/v1.11.0/hyperfine-v1.11.0-x86_64-unknown-linux-gnu.tar.gz e3ad877029778b1f82651fa2e2285a6a32e446f2ca2cf11e8b6979f83843cb9d
 
