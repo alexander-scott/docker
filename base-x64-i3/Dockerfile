@@ -11,11 +11,18 @@ RUN apt-get update \
         procps \
         python3 \
         rxvt-unicode \
+        software-properties-common \
         supervisor \
         x11vnc \
         xorg \
         xvfb \
         xterm
+
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A6DCF7707EBC211F \
+    && apt-add-repository "deb http://ppa.launchpad.net/ubuntu-mozilla-security/ppa/ubuntu bionic main" \
+    && apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install --yes --fix-broken \
+        firefox
 
 RUN apt-get remove -y \
         terminator
