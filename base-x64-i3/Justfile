@@ -37,7 +37,9 @@ run_root:
     -it \
     --net=host \
     -p 6080:6080 \
+    -p 8000:8000 \
     -e DISPLAY=:42 \
+    -v $(pwd):/sources_docker \
     {{docker_image}} || true
 
 test:

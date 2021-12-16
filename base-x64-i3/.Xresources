@@ -1,7 +1,7 @@
-xterm*faceName:                 monospace:pixelsize=12
+xterm*faceName:   monospace:pixelsize=12
 
 !Theme Nine
 xterm*background: rgb:1a/1a/1a
 xterm*foreground: rgb:d6/d6/d6
 xterm*color4:     rgb:74/c1/f2
-xterm*color12:     rgb:84/c1/f2
+xterm*color12:    rgb:84/c1/f2
