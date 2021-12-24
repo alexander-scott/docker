@@ -65,6 +65,7 @@ RUN url-install \
         https://github.com/haampie/libtree/releases/download/v2.0.0/libtree_x86_64.tar.gz 8f34ec49d667ca4f111fa8b72e3d76914a7681e4c6b69e69d6a1b76799a0b5b0 \
         https://github.com/imsnif/bandwhich/releases/download/0.20.0/bandwhich-v0.20.0-x86_64-unknown-linux-musl.tar.gz 73416b50baa34d9c3d56958655a789b4697f4f09e6f7ae0e079eb742cce7837b  \
         https://github.com/mgdm/htmlq/releases/download/v0.3.0/htmlq-x86_64-linux.tar.gz cfd8a871b8f3c3921c8b4c943806704cf058af1691248cce382885e8f8ce025f \
+        https://github.com/mptre/yank/releases/download/v1.2.0/yank-1.2.0.tar.gz b500d1a71378e69a2a348032107e6d8db728b8f6af280a9bb4cb446c1d26e43a  \
         https://github.com/ogham/exa/releases/download/v0.9.0/exa-linux-x86_64-0.9.0.zip 53d8746b1ca2d945c5b75767edc83addfd1fe3c4a2b0b766c07172473330a50b  \
         https://github.com/rhysd/hgrep/releases/download/v0.1.7/hgrep-v0.1.7-x86_64-unknown-linux-gnu.zip aeb6f20a7b621454ff137108b935559fc4974e7167279531aac83b8fe6decd3f  \
         https://github.com/sachaos/viddy/releases/download/v0.3.2/viddy_0.3.2_Linux_x86_64.tar.gz a11e950b91def821b3f62cdc55036c3e6eaf5bdf0b01cf8ecc6a1c1195cd331c \
